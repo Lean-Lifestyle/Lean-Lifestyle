@@ -1,0 +1,22 @@
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+exports.up = (knex) => {
+    return knex.schema.createTable('user_stats', (table) => {
+        table.integer('user_id').notNullable();
+        table.foreign('user_id').references('users.id');
+        table.integer('height').notNullable();
+        table.integer('weight').notNullable();
+        table.float('BMI').notNullable();
+        table.timestamp('created_at').defaultTo(knex.fn.now());
+    })
+};
+
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+exports.down = (knex) => {
+    return knex.schema.dropTable('user_stats');
+};
