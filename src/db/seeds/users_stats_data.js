@@ -1,15 +1,14 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
-  // Deletes ALL existing entries
-  await knex('user_stats').insert([
+exports.seed = async function (knex) {
+  await knex("user_stats").insert([
     {
-      user_id: 18,
+      user_id: 1,
       height: 162,
       weight: 60,
-      BMI: 22.9
-    }
+      BMI: 22.9,
+    },
   ]);
 };
