@@ -5,9 +5,9 @@
 exports.up = (knex) => {
     return knex.schema.createTable('users_target', (table) => {
         table.integer('user_id').notNullable();
-        table.foreign('user_id').references('users.id');
-        table.integer('target_weight').notNullable();
-        table.integer('target_height').notNullable();
+        table.foreign("user_id").references("id").inTable("users");
+        table.float('target_weight').notNullable();
+        table.float('target_height').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
     })
 };

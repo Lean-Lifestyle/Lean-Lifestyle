@@ -6,8 +6,8 @@ exports.up = (knex) => {
     return knex.schema.createTable('users_progress', (table) => {
         table.increments('id').primary();
         table.integer('user_id').notNullable();
-        table.foreign('user_id').references('users.id');
-        table.integer('weight').notNullable();
+        table.foreign("user_id").references("id").inTable("users");
+        table.float('weight').notNullable();
         table.float('BMI').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
     })
