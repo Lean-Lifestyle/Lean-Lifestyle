@@ -8,7 +8,7 @@ exports.up = (knex) => {
         table.integer('user_id').notNullable();
         table.foreign("user_id").references("id").inTable("users");
         table.float('weight').notNullable();
-        table.float('BMI').notNullable();
+        table.float('bmi').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
     })
 };
