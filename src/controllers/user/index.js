@@ -6,6 +6,7 @@ const update = require('./update');
 const login = require('./login');
 const logout = require('./logout');
 const showMe = require('./show-me');
+const createUsersStats = require('./create_users_stats');
 
 module.exports = {
   list,
@@ -16,4 +17,5 @@ module.exports = {
   login,
   logout,
   showMe,
+  createUsersStats,
 };
