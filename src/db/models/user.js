@@ -73,7 +73,7 @@ class User {
           date_of_birth,
         })
         .returning("*");
-      return result[0];
+      return new User(result[0]);
     } catch (err) {
       console.error(err);
       return null;
