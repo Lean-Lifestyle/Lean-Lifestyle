@@ -3,15 +3,10 @@ const authUtils = require("../../utils/auth-utils");
 
 class User {
   #passwordHash = null;
-
-  // This constructor is used ONLY by the model
-  // to provide the controller with instances that
-  // have access to the instance methods isValidPassword
-  // and update.
-  constructor({ id, username, password_hash }) {
+  constructor({ id, username, password }) {
     this.id = id;
     this.username = username;
-    this.#passwordHash = password_hash;
+    this.#passwordHash = password;
   }
 
   static async list() {
@@ -44,6 +39,7 @@ class User {
       const {
         rows: [user],
       } = await knex.raw(query, [username]);
+      console.log(user);
       return user ? new User(user) : null;
     } catch (err) {
       console.error(err);
@@ -51,29 +47,32 @@ class User {
     }
   }
 
-  static async create({
+  static async create(
     username,
     password,
     email,
     first_name,
     last_name,
     gender,
-    date_of_birth,
-  }) {
+    date_of_birth
+  ) {
     try {
       const passwordHash = await authUtils.hashPassword(password);
-      const result = await knex("users")
-        .insert({
-          username,
-          password: passwordHash,
-          email,
-          first_name,
-          last_name,
-          gender,
-          date_of_birth,
-        })
-        .returning("*");
-      return new User(result[0]);
+
+      const query = `INSERT INTO users (username, password, email, first_name, last_name, gender, date_of_birth)
+        VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *`;
+      const {
+        rows: [user],
+      } = await knex.raw(query, [
+        username,
+        passwordHash,
+        email,
+        first_name,
+        last_name,
+        gender,
+        date_of_birth,
+      ]);
+      return new User(user);
     } catch (err) {
       console.error(err);
       return null;
@@ -104,7 +103,7 @@ class User {
   };
 
   isValidPassword = async (password) =>
-    authUtils.isValidPassword(password, this.#passwordHash);
+    await authUtils.isValidPassword(password, this.#passwordHash);
 }
 
 module.exports = User;
