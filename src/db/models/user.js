@@ -58,7 +58,6 @@ class User {
   ) {
     try {
       const passwordHash = await authUtils.hashPassword(password);
-
       const query = `INSERT INTO users (username, password, email, first_name, last_name, gender, date_of_birth)
         VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING *`;
       const {
