@@ -23,11 +23,58 @@
         <!-- add graph code right here -->
       </div>
       <div class ='apiContent'>
+        <div class="login-box">
+            <form> 
+                <div class = 'user-box'>
+                    <input type = 'text' id="searchBar"/>
+                    <label for = 'Search'>Search</label>
+                </div>
+            </form>
+        </div>
+        <div class = 'login-box'>
         <form>
             <div class = 'user-box'>
-                
+                <input type = 'text' id="nameOfExercise"/>
             </div>
-        </form>
+            <div class = 'user-box'>
+                <select id="activity-level" name="typeOfExercise">
+                    <option value="cardio">Cardio</option>
+                    <option value="olympic_weightlifting">Olympic WeightLifting</option>
+                    <option value="plyometrics">Plyometrics</option>
+                    <option value="powerlifting">Powerlifting</option>
+                    <option value="strength">Strength</option>
+                    <option value="stretching">Stretching</option>
+                    <option value="strongman">Strongman</option>
+                </select>
+            </div>
+            <div class = 'user-box'>
+                <select id="activity-level" name="muscleOfExercise">
+                    <option value="chest">Chest</option>
+                    <option value="back">Back</option>
+                    <option value="biceps">Biceps</option>
+                    <option value="triceps">Triceps</option>
+                    <option value="shoulders">Shoulders</option>
+                    <option value="abdominals">Abs</option>
+                    <option value="legs">Legs</option>
+                    <option value="calves">Calves</option>
+                    <option value="quadriceps">Quadriceps</option>
+                    <option value="hamstrings">Hamstrings</option>
+                    <option value="glutes">Glutes</option>
+                    <option value="neck">Neck</option>
+                    <option value="forearms">Forearms</option>
+                    <option value='traps'>Traps</option>
+                    <option value="lats">Lats</option>
+                </select>
+            </div>
+            <div class="user-box">
+                <select id="activity-level" name="difficultyOfExercise">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="expert">Expert</option>
+                </select>
+            </div>
+        </form> 
+        </div>
       </div>
     </div>
     <script src="index.js"></script>
