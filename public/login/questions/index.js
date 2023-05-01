@@ -38,7 +38,6 @@ const convertToDays = (duration) => duration * 7;
 
 submitBtn.addEventListener("click", async (e) => {
   e.preventDefault();
-  console.log(e);
   const userId = await getUserId();
   const weightInKG = convertToKG(weight.value);
   const heightInCM = convertToCM(feet.value, inches.value);
@@ -64,6 +63,5 @@ submitBtn.addEventListener("click", async (e) => {
   };
   const [data, error] = await fetchData("/api/users/questions", option);
   if (error) return handleError(error);
-  console.log(data);
   console.log("Users Stats created");
 });

@@ -1,16 +1,55 @@
 const knex = require("../knex");
 
 class UserStats {
-    static async create(user_id, height, weight, bmi, activity_level) {
-        try{
-            const query = "INSERT INTO user_stats (user_id, height, weight, bmi, activity_level) VALUES (?, ?, ?, ?, ?) RETURNING *";
-            const { rows } = await knex.raw(query, [user_id, height, weight, bmi, activity_level]);
-            return rows;
-        }catch(error){
-            console.log(error);
-            return null;
-        }
+  static async create(user_id, height, weight, bmi, activity_level) {
+    try {
+      const query = `
+        INSERT INTO user_stats (user_id, height, weight, bmi, activity_level) 
+         VALUES (?, ?, ?, ?, ?) 
+        RETURNING *`;
+      const { rows } = await knex.raw(query, [
+        user_id,
+        height,
+        weight,
+        bmi,
+        activity_level,
+      ]);
+      return rows;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
+  }
+
+  static async getUserStats(user_id) {
+    try {
+      const query = `SELECT * FROM user_stats WHERE user_id = ?`;
+      const { rows } = await knex.raw(query, [user_id]);
+      return rows;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  static async createUserTarget(user_id, target_weight, target_duration) {
+    try {
+      const targetEndDate = new Date();
+      targetEndDate.setDate(targetEndDate.getDate() + target_duration);
+      const { rows } = await knex.raw(
+        `
+      INSERT INTO users_target (user_id, target_weight, target_duration, target_end_date)
+      VALUES (?, ?, ?, ?) 
+      RETURNING *;
+      `,
+        [user_id, target_weight, target_duration, targetEndDate]
+      );
+      return rows;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 }
 
 module.exports = UserStats;
