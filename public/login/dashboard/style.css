@@ -8,7 +8,13 @@ html {
     font-family: sans-serif;
     background: linear-gradient(#141e30, #243b55);
   }
-  
+  .profile{
+    background-color: thistle;
+    display: block;
+  }
+  .profile-info{
+    background-color: blue;
+  }
   /* .login-box {
     position: absolute;
     top: 50%;
