@@ -9,6 +9,7 @@ exports.up = (knex) => {
         table.float('height').notNullable();
         table.float('weight').notNullable();
         table.float('bmi').notNullable();
+        table.string('activity_level').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now());
     })
 };
