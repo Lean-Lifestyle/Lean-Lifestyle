@@ -16,6 +16,17 @@ const fetchData = async (url, options) => {
 
 const handleError = (error) => console.error(error.message);
 
+const fetchLoggedInUser = async () => {
+  const [response, _err] = await fetchData("/api/me", {
+    credentials: "include",
+  });
+  if (response) {
+    window.location.href = "/dashboard";
+  } else {
+    document.body.style.display = "block";
+  }
+};
+
 const checkUsersStats = async (userId) => {
   const option = {
     method: "POST",
@@ -31,7 +42,7 @@ const checkUsersStats = async (userId) => {
   return data.length > 0;
 };
 
-submitBtn.addEventListener("click", async (e) => {
+const handleFormSubmit = async (e) => {
   e.preventDefault();
   const un = username.value;
   const pw = password.value;
@@ -53,4 +64,9 @@ submitBtn.addEventListener("click", async (e) => {
   } else {
     window.location.href = "/questions";
   }
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await fetchLoggedInUser();
+  submitBtn.addEventListener("click", handleFormSubmit);
 });
