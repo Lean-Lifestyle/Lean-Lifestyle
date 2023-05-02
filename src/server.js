@@ -10,8 +10,17 @@ const app = express();
 app.use(handleCookieSessions);
 app.use(logRoutes);
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "..", "public", "login")));
 
 app.use("/api", routes);
+
+app.use((req, res) => {
+  res
+    .status(404)
+    .sendFile(
+      path.join(__dirname, "..", "public", "login", "404", "index.html")
+    );
+});
 
 module.exports = app;

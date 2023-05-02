@@ -16,7 +16,37 @@ const fetchData = async (url, options) => {
 
 const handleError = (error) => console.error(error.message);
 
-submitBtn.addEventListener("click", async (e) => {
+const fetchLoggedInUser = async () => {
+  const [response, _err] = await fetchData("/api/me", {
+    credentials: "include",
+  });
+  if (response) {
+    console.log(response);
+    window.location.href = "/dashboard";
+    return true;
+  } else {
+    document.body.style.display = "block";
+    return false;
+  }
+};
+
+const checkUsersStats = async (userId) => {
+  const option = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: userId,
+    }),
+  };
+  const [data, error] = await fetchData("/api/users/stats", option);
+  if (error) handleError(error);
+  console.log(data);
+  return data.length > 0;
+};
+
+const handleFormSubmit = async (e) => {
   e.preventDefault();
   const un = username.value;
   const pw = password.value;
@@ -32,11 +62,23 @@ submitBtn.addEventListener("click", async (e) => {
   };
   const [data, error] = await fetchData("api/users/login", option);
   if (error) return handleError(error);
-  if (data) {
-    console.log('you are good')
-    // window.location.href = "/questions";
-    return window.location.assign('./dashboard/index.html');
+  const userStats = await checkUsersStats(data.id);
+  if (userStats) {
+    console.log("if:", userStats);
+    window.location.href = "/dashboard";
+  } else {
+    console.log("else:", userStats);
+    window.location.href = "/questions";
   }
-})
+};
 
-
+document.addEventListener("DOMContentLoaded", async () => {
+  const loggedIn = await fetchLoggedInUser();
+  if (loggedIn) {
+    console.log(loggedIn);
+    await fetchLoggedInUser();
+  } else {
+    console.log("not logged in");
+    submitBtn.addEventListener("click", handleFormSubmit);
+  }
+});

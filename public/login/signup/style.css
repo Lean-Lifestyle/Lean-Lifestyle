@@ -241,3 +241,9 @@ input[type="date"]::-ms-input-placeholder {
 input[type="date"]::placeholder {
   visibility: hidden !important;
 }
+
+#error-message {
+  color:red; 
+  text-align:center;
+  padding-bottom:5px
+}

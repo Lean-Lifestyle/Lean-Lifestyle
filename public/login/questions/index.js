@@ -65,4 +65,5 @@ submitBtn.addEventListener("click", async (e) => {
   if (error) return handleError(error);
   window.location.href = "../dashboard/index.html";
   console.log("Users Stats created");
+  window.location.href = "/dashboard";
 });

@@ -62,3 +62,17 @@ const main = async () => {
 }
 
 main();
+
+
+
+
+logout.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const option = {
+    method: "DELETE",
+    credentials: "include",
+  };
+  const [data, error] = await fetchData("/api/users/logout", option);
+  if (error) return handleError(error);
+  window.location.href = "/";
+});

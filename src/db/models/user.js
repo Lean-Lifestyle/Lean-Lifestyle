@@ -39,7 +39,19 @@ class User {
       const {
         rows: [user],
       } = await knex.raw(query, [username]);
-      console.log(user);
+      return user ? new User(user) : null;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+
+  static async findByEmail(email) {
+    try {
+      const query = "SELECT * FROM users WHERE email = ?";
+      const {
+        rows: [user],
+      } = await knex.raw(query, [email]);
       return user ? new User(user) : null;
     } catch (err) {
       console.error(err);
