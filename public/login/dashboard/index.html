@@ -53,11 +53,16 @@
     <div class="content">
       <h1>Weight Loss Goal Tracker</h1>
       <div class="dashboard">
-        <div class="profile">
-          <img src="./icon_profile.png" />
-          name: Sex: Age: UserName:
-          <div class="profile-info">
-            <p>hello</p>
+        <div class="profile-card">
+          <div class = 'profile-icon-container'>
+            <img src="./icon_profile.png"/>
+          </div>
+          <div class = 'profile-stats'>
+            <h2 id = 'username'>Name</h2>
+            <p id = 'height'>Height</p>
+            <p id = 'weight'>Weight</p>
+            <p id = 'bmi'>BMI</p>
+            <p id = 'level'>Level</p>
           </div>
         </div>
       </div>
@@ -65,19 +70,20 @@
         <!-- add graph code right here -->
       </div>
       <div class="apiContent">
-        <div class="login-box">
+        <div class="form-box">
           <form>
             <div class="user-box">
-              <input type="text" id="searchBar" />
-
               <label for="Search">Search</label>
+              <input type="text" id="searchBar"/>
+              <button type = 'submit' id ='ytBtn'>YT Submit</button>
             </div>
           </form>
         </div>
-        <div class="login-box">
+        <div class="form-box">
           <form>
             <div class="container">
-              <input type="text" id="nameOfExercise" />
+              <label for = 'nameOfExercise'>Name of Exercise: </label>
+              <input type="text" id="nameOfExercise"/>
             </div>
             <div class="container">
               <select id="activity-level" name="typeOfExercise">

@@ -7,12 +7,9 @@ body {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
 }
-.profile{
+.profile-card{
   background-color: thistle;
   display: block;
-}
-.profile-info{
-  background-color: blue;
 }
 form {
   width: 40%;
@@ -60,7 +57,7 @@ input[type="submit"]:hover {
 .dashboard{
   background-color: purple;
 }
-.profile-card {
+.profile-card, .apiContent{
   display: flex;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -71,7 +68,7 @@ input[type="submit"]:hover {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.profile-icon-container {
+.profile-icon-container, .form-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,6 +96,9 @@ input[type="submit"]:hover {
   font-size: 1.2rem;
   margin: 5px 0;
 }
+#logo {
+  width: 200px;
+}
 @media (max-width: 600px) {
   .profile-card {
     max-width: 90%;
@@ -107,17 +107,3 @@ input[type="submit"]:hover {
     font-size: 2rem;
   }
 }
-  .profile{
-    background-color: thistle;
-    display: block;
-  }
-  .profile-info{
-    background-color: blue;
-  }
-  
-  #logo {
-    width: 200px;
-  }
-
-
-  

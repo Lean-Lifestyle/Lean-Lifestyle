@@ -1,8 +1,10 @@
 const h2 = document.querySelector("#username");
-const height = document.querySelector("#height");
-const weight = document.querySelector("#weight");
-const level = document.querySelector("#level");
+const userHeight = document.querySelector("#height");
+const userWeight = document.querySelector("#weight");
+const userLevel = document.querySelector("#level");
+const userBMI = document.querySelector("#bmi");
 const logoutBtn = document.querySelector("#logoutBtn");
+const ytBtn = document.querySelector("#ytBtn");
 
 const fetchData = async (url, options) => {
   try {
@@ -13,6 +15,16 @@ const fetchData = async (url, options) => {
   } catch (error) {
     return [null, error];
   }
+};
+
+const fetchFrom = async (url) => {
+    try{
+        const response = await fetch(url);
+        return await response.json();
+    }catch(error){
+        console.log(error);
+        return null;
+    }
 };
 
 const handleError = (error) => console.error(error.message);
@@ -39,6 +51,25 @@ const getUserId = async () => {
   }
 };
 
+const convertCMtoInches = (cm) => Math.round(cm / 2.54);
+const convertInchesToFeet = (inches) => {
+    return {
+        feet: Math.round(inches/12),
+        inches: inches%12,
+    };
+}
+const covertKgTOLbs = (kg) => Number((kg * 2.205).toFixed(1));
+const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${apiKey}`;
+async function yt(url) {
+    try{
+        const response = await fetch(url);
+        return await response.json();
+    }catch(error){
+        console.log(error);
+    }
+   
+}
+
 const main = async () => {
   const username = await getUserName();
   const id = await getUserId();
@@ -54,11 +85,36 @@ const main = async () => {
   const [data, error] = await fetchData("/api/users/stats", option);
   if (error) handleError(error);
   console.log(data);
+  
+  const { user_Id, height, weight, bmi, activity_level } = data;
+
+  console.log(activity_level)
+
+    if(activity_level === 'level_1'){
+        userLevel.innerText = 'Sedentary: little or no exercise';
+    }else if(activity_level === 'level_2'){
+        userLevel.innerText = 'Lightly active: 1-3 times/week';
+    }else if(activity_level === 'level_3'){
+        userLevel.innerText = 'Moderately active: 3-5 times/week';
+    }else if(activity_level === 'level_4'){
+        userLevel.innerText = 'Active: daily exercise or intense exercise 3-4 times/week ';
+    }else if(activity_level === 'level_5'){
+        userLevel.innerText = 'Very Active: intense exercise 6-7 times/week'
+    }else if(activity_level === 'level_6'){
+        userLevel.innerText = 'Extra Active: very intense exercise daily, or physical job';
+    }
+    
+  const inche = convertCMtoInches(height);
+  const {feet, inches} = convertInchesToFeet(inche);
+  const lbs = covertKgTOLbs(weight);
+  console.log(lbs)
   // const stats = await getUserStats();
-  // height.innerText = `Height : ${stats.height} cm`;
-  // weight.innerText = `Weight : ${stats.weight} kg`;
+  h2.innerText = username;
+  userHeight.innerText = `Height: ${feet}' ${inches}''`;
+  userWeight.innerText = `Weight : ${lbs} lbs`;
+  userBMI.innerText = `BMI : ${bmi}`;
   // level.innerText = ` Activity Level : ${stats.activity_level}'s`;
-  // h2.innerText = username;
+  
 
   console.log(id);
   // logoutBtn.addEventListener("submit", async (e) => {
@@ -80,3 +136,8 @@ logout.addEventListener("click", async (e) => {
   if (error) return handleError(error);
   window.location.href = "/";
 });
+
+ytBtn.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    fetchFrom(``);
+})
