@@ -6,7 +6,7 @@ html {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
+    /* background: linear-gradient(#141e30, #243b55); */
   }
   .profile{
     background-color: thistle;
@@ -15,154 +15,10 @@ html {
   .profile-info{
     background-color: blue;
   }
-  /* .login-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    padding: 40px;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, .5);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-    border-radius: 10px;
+  
+  #logo {
+    width: 200px;
   }
-  
-  .login-box h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: white;
-    text-align: center;
-  }
-  
-  .login-box .user-box {
-    position: relative;
-  }
-  
-  .login-box .user-box input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: white;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid white;
-    outline: none;
-    background: transparent;
-  }
-  
-  .login-box .user-box label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: white;
-    pointer-events: none;
-    transition: .5s;
-  }
-  
-  .login-box .user-box input:focus ~ label, .login-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #03e9f4;
-    font-size: 12px;
-  }
-  
-  #submit {
-    border: none;
-    background: transparent;
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #03e9f4;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    letter-spacing: 4px;
-  }
-  
-  #submit:hover {
-    background: #03e9f4;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4, 
-                0 0 25px #03e9f4, 
-                0 0 50px #03e9f4, 
-                0 0 100px #03e9f4;
-  }
-  
-  
-  #activity-level {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: white;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid white;
-    outline: none;
-    background: transparent;
-  }
-  
-  #activity-level option {
-    background-color: #243b55;
-  }
-  
-  #activity-level:focus {
-    border-color: #03e9f4;
-  }
-  
-  #activity-level:focus option:checked {
-    background-color: #03e9f4;
-    color: white;
-  }
-  
-  #activity-level:focus option:not(:checked) {
-    background-color: #243b55;
-    color: white;
-  }
-  
-  #activity-level:focus option:hover {
-    background-color: #03e9f4;
-    color: white;
-  }
-  
-  
-  .user-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-  }
-  
-  .input-container input {
-    padding: 10px 0;
-    font-size: 16px;
-    color: white;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid white;
-    outline: none;
-    background: transparent;
-  }
-  
-  .input-container label {
-    padding: 10px 0;
-    font-size: 16px;
-    color: white;
-    pointer-events: none;
-    transition: .5s;
-  }
-  
-  #inches {
-    left: 176px;
-  } */
+
+
   

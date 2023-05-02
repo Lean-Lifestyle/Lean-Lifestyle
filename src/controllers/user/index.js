@@ -1,12 +1,13 @@
-const list = require('./list');
-const create = require('./create');
-const show = require('./show');
-const update = require('./update');
+const list = require("./list");
+const create = require("./create");
+const show = require("./show");
+const update = require("./update");
 
-const login = require('./login');
-const logout = require('./logout');
-const showMe = require('./show-me');
-const createUsersStats = require('./create_users_stats');
+const login = require("./login");
+const logout = require("./logout");
+const showMe = require("./show-me");
+const createUsersStats = require("./create_users_stats");
+const checkUsersStats = require("./check_users_stats");
 
 module.exports = {
   list,
@@ -18,4 +19,5 @@ module.exports = {
   logout,
   showMe,
   createUsersStats,
+  checkUsersStats,
 };

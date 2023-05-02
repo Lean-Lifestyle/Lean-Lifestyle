@@ -16,6 +16,21 @@ const fetchData = async (url, options) => {
 
 const handleError = (error) => console.error(error.message);
 
+const checkUsersStats = async (userId) => {
+  const option = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: userId,
+    }),
+  };
+  const [data, error] = await fetchData("/api/users/stats", option);
+  if (error) handleError(error);
+  return data.length > 0;
+};
+
 submitBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   const un = username.value;
@@ -32,10 +47,10 @@ submitBtn.addEventListener("click", async (e) => {
   };
   const [data, error] = await fetchData("api/users/login", option);
   if (error) return handleError(error);
-  if (data) {
-    console.log('you are good')
+  const userStats = await checkUsersStats(data.id);
+  if (userStats) {
+    window.location.href = "/dashboard";
+  } else {
     window.location.href = "/questions";
   }
-})
-
-
+});

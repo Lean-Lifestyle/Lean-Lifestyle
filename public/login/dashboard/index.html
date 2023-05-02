@@ -5,86 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Weight Loss Goal Tracker</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- <script type="module" src="../../scripts/global.js"></script> -->
   </head>
   <body>
-    <nav>
-        <a href = '../index.html'>Log Out</a>
-    </nav>
+    <header id="header">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#"
+            ><img id="logo" src="./logo.png" alt="logo" srcset=""
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mx-auto"></div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link nav-hover" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link nav-hover" href="#">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a id="logout" class="nav-link nav-hover" href="#">Log out</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
     <div class="content">
       <h1>Weight Loss Goal Tracker</h1>
       <div class="dashboard">
-        <div class = 'profile'>
-            <img src = '../../icon_profile.png'>
-            name:
-            Sex:
-            Age:
-            UserName:
-            <div class = profile-info>
-                <p> hello</p>
-            </div>
+        <div class="profile">
+          <img src="./icon_profile.png" />
+          name: Sex: Age: UserName:
+          <div class="profile-info">
+            <p>hello</p>
+          </div>
         </div>
       </div>
-      <div class ='graph'>
+      <div class="graph">
         <!-- add graph code right here -->
       </div>
-      <div class ='apiContent'>
+      <div class="apiContent">
         <div class="login-box">
-            <form> 
-                <div class = 'user-box'>
-                    <input type = 'text' id="searchBar"/>
+          <form>
+            <div class="user-box">
+              <input type="text" id="searchBar" />
 
-                    <label for = 'Search'>Search</label>
-                </div>
-            </form>
+              <label for="Search">Search</label>
+            </div>
+          </form>
         </div>
-        <div class = 'login-box'>
-        <form>
-            <div class = 'container'>
-                <input type = 'text' id="nameOfExercise"/>
-            </div>
-            <div class = 'container'>
-                <select id="activity-level" name="typeOfExercise">
-                    <option value="cardio">Cardio</option>
-                    <option value="olympic_weightlifting">Olympic WeightLifting</option>
-                    <option value="plyometrics">Plyometrics</option>
-                    <option value="powerlifting">Powerlifting</option>
-                    <option value="strength">Strength</option>
-                    <option value="stretching">Stretching</option>
-                    <option value="strongman">Strongman</option>
-                </select>
-            </div>
-            <div class = 'conatiner'>
-                <select id="activity-level" name="muscleOfExercise">
-                    <option value="chest">Chest</option>
-                    <option value="back">Back</option>
-                    <option value="biceps">Biceps</option>
-                    <option value="triceps">Triceps</option>
-                    <option value="shoulders">Shoulders</option>
-                    <option value="abdominals">Abs</option>
-                    <option value="legs">Legs</option>
-                    <option value="calves">Calves</option>
-                    <option value="quadriceps">Quadriceps</option>
-                    <option value="hamstrings">Hamstrings</option>
-                    <option value="glutes">Glutes</option>
-                    <option value="neck">Neck</option>
-                    <option value="forearms">Forearms</option>
-                    <option value='traps'>Traps</option>
-                    <option value="lats">Lats</option>
-                </select>
+        <div class="login-box">
+          <form>
+            <div class="container">
+              <input type="text" id="nameOfExercise" />
             </div>
             <div class="container">
-                <select id="activity-level" name="difficultyOfExercise">
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="expert">Expert</option>
-                </select>
+              <select id="activity-level" name="typeOfExercise">
+                <option value="cardio">Cardio</option>
+                <option value="olympic_weightlifting">
+                  Olympic WeightLifting
+                </option>
+                <option value="plyometrics">Plyometrics</option>
+                <option value="powerlifting">Powerlifting</option>
+                <option value="strength">Strength</option>
+                <option value="stretching">Stretching</option>
+                <option value="strongman">Strongman</option>
+              </select>
             </div>
-        </form> 
+            <div class="conatiner">
+              <select id="activity-level" name="muscleOfExercise">
+                <option value="chest">Chest</option>
+                <option value="back">Back</option>
+                <option value="biceps">Biceps</option>
+                <option value="triceps">Triceps</option>
+                <option value="shoulders">Shoulders</option>
+                <option value="abdominals">Abs</option>
+                <option value="legs">Legs</option>
+                <option value="calves">Calves</option>
+                <option value="quadriceps">Quadriceps</option>
+                <option value="hamstrings">Hamstrings</option>
+                <option value="glutes">Glutes</option>
+                <option value="neck">Neck</option>
+                <option value="forearms">Forearms</option>
+                <option value="traps">Traps</option>
+                <option value="lats">Lats</option>
+              </select>
+            </div>
+            <div class="container">
+              <select id="activity-level" name="difficultyOfExercise">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="expert">Expert</option>
+              </select>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
     <script src="index.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
  */
 exports.up = (knex) => {
     return knex.schema.createTable('user_stats', (table) => {
-        table.integer('user_id').notNullable();
+        table.integer('user_id').notNullable().unique();
         table.foreign("user_id").references("id").inTable("users");
         table.float('height').notNullable();
         table.float('weight').notNullable();

@@ -64,4 +64,5 @@ submitBtn.addEventListener("click", async (e) => {
   const [data, error] = await fetchData("/api/users/questions", option);
   if (error) return handleError(error);
   console.log("Users Stats created");
+  window.location.href = "/dashboard";
 });
