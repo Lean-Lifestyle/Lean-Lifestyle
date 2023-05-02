@@ -33,17 +33,6 @@ const getUserName = async () => {
     }
 };
 
-const getUserStats = async () => {
-    try{
-        const [data, error] = await fetchData("/api/me/stats", { method: "GET"});
-        if(error) handleError(error);
-        console.log(data);
-        return data;
-    }catch(error){
-        console.log(error);
-        return null;
-    }
-}
 
 const main = async () => {
     const username = await getUserName();
