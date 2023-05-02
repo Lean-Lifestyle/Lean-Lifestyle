@@ -5,6 +5,7 @@ const userLevel = document.querySelector("#level");
 const userBMI = document.querySelector("#bmi");
 const logoutBtn = document.querySelector("#logoutBtn");
 const ytBtn = document.querySelector("#ytBtn");
+const searchYt = document.querySelector("#searchBar");
 
 const fetchData = async (url, options) => {
   try {
@@ -59,16 +60,6 @@ const convertInchesToFeet = (inches) => {
     };
 }
 const covertKgTOLbs = (kg) => Number((kg * 2.205).toFixed(1));
-const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${apiKey}`;
-async function yt(url) {
-    try{
-        const response = await fetch(url);
-        return await response.json();
-    }catch(error){
-        console.log(error);
-    }
-   
-}
 
 const main = async () => {
   const username = await getUserName();
@@ -137,7 +128,20 @@ logout.addEventListener("click", async (e) => {
   window.location.href = "/";
 });
 
-ytBtn.addEventListener("submit", async (e) => {
+ytBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-    fetchFrom(``);
+    const searchQuery = searchYt.value;
+
+    yt(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${apiKey}`);
 })
+
+async function yt(url) {
+    try{
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+    }catch(error){
+        console.log(error);
+    }
+   
+}
