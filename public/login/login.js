@@ -34,7 +34,8 @@ submitBtn.addEventListener("click", async (e) => {
   if (error) return handleError(error);
   if (data) {
     console.log('you are good')
-    window.location.href = "/questions";
+    // window.location.href = "/questions";
+    return window.location.assign('./dashboard/index.html');
   }
 })
 

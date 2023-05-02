@@ -61,6 +61,6 @@ form.addEventListener("submit", async (e) => {
   if (error) return handleError(error);
   console.log(data);
   console.log("checking end");
-  window.location.href = "/";
+  window.location.href = "../questions/index.html";
   eraseValues();
 });

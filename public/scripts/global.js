@@ -54,7 +54,7 @@ const updateUsernameHandler = async (form) => {
 const logOutHandler = async () => {
   const [_response, err] = await handleFetch('/api/users/logout', { method: 'DELETE' });
   if (err) return alert('Something went wrong');
-  window.location.assign('/');
+  window.location.href = '../index.html';
 };
 
 // Nav Helper

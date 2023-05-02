@@ -25,7 +25,7 @@ class UserStats {
     try {
       const query = `SELECT * FROM user_stats WHERE user_id = ?`;
       const { rows } = await knex.raw(query, [user_id]);
-      return rows;
+      return rows[0];
     } catch (error) {
       console.log(error);
       return null;
@@ -51,5 +51,11 @@ class UserStats {
     }
   }
 }
+
+// const main = async () => {
+//   const user_stats = await UserStats.getUserStats(1);
+//   console.log(user_stats);
+// }
+// main();
 
 module.exports = UserStats;
