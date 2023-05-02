@@ -21,9 +21,12 @@ const fetchLoggedInUser = async () => {
     credentials: "include",
   });
   if (response) {
+    console.log(response);
     window.location.href = "/dashboard";
+    return true;
   } else {
     document.body.style.display = "block";
+    return false;
   }
 };
 
@@ -39,6 +42,7 @@ const checkUsersStats = async (userId) => {
   };
   const [data, error] = await fetchData("/api/users/stats", option);
   if (error) handleError(error);
+  console.log(data);
   return data.length > 0;
 };
 
@@ -60,13 +64,21 @@ const handleFormSubmit = async (e) => {
   if (error) return handleError(error);
   const userStats = await checkUsersStats(data.id);
   if (userStats) {
+    console.log("if:", userStats);
     window.location.href = "/dashboard";
   } else {
+    console.log("else:", userStats);
     window.location.href = "/questions";
   }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await fetchLoggedInUser();
-  submitBtn.addEventListener("click", handleFormSubmit);
+  const loggedIn = await fetchLoggedInUser();
+  if (loggedIn) {
+    console.log(loggedIn);
+    await fetchLoggedInUser();
+  } else {
+    console.log("not logged in");
+    submitBtn.addEventListener("click", handleFormSubmit);
+  }
 });

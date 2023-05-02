@@ -7,19 +7,26 @@ const passwordInput = document.querySelector("#password");
 const genderInput = document.querySelector("#gender");
 const birthdayInput = document.querySelector("#birthday");
 const login = document.querySelector("#login");
+const errorMessage = document.querySelector("#error-message");
 
 const fetchData = async (url, options) => {
   try {
     const response = await fetch(url, options);
-    if (!response.ok) throw new Error(response.statusText);
-    if (response.status === 204) return [{}];
-    return [await response.json()];
+    const data = await response.json();
+    if (response.ok) {
+      return [data];
+    } else {
+      throw { status: response.status, message: data.error };
+    }
   } catch (error) {
     return [null, error];
   }
 };
 
-const handleError = (error) => console.error(error.message);
+const handleError = async (error) => {
+  console.error(error.message);
+  errorMessage.textContent = error.message;
+};
 
 const data = [
   firstNameInput,
@@ -47,9 +54,9 @@ const getValues = () => {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   console.log("checking start");
+  errorMessage.textContent = "";
 
   const values = getValues();
-  console.log(values);
   const option = {
     method: "POST",
     headers: {
@@ -59,8 +66,6 @@ form.addEventListener("submit", async (e) => {
   };
   const [data, error] = await fetchData("/api/users", option);
   if (error) return handleError(error);
-  console.log(data);
-  console.log("checking end");
-  window.location.href = "/";
+  window.location.href = "/questions";
   eraseValues();
 });
