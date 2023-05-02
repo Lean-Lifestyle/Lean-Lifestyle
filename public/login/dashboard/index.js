@@ -28,14 +28,39 @@ const getUserName = async () => {
   }
 };
 
+const getUserId = async () => {
+  try {
+    const [data, error] = await fetchData("/api/me", { method: "GET" });
+    if (error) handleError(error);
+    console.log(data.id);
+    return data.id;
+  } catch (error) {
+    return null;
+  }
+};
+
 const main = async () => {
   const username = await getUserName();
-  const stats = await getUserStats();
-  height.innerText = `Height : ${stats.height} cm`;
-  weight.innerText = `Weight : ${stats.weight} kg`;
-  level.innerText = ` Activity Level : ${stats.activity_level}'s`;
-  h2.innerText = username;
+  const id = await getUserId();
+  const option = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: id,
+    }),
+  };
+  const [data, error] = await fetchData("/api/users/stats", option);
+  if (error) handleError(error);
+  console.log(data);
+  // const stats = await getUserStats();
+  // height.innerText = `Height : ${stats.height} cm`;
+  // weight.innerText = `Weight : ${stats.weight} kg`;
+  // level.innerText = ` Activity Level : ${stats.activity_level}'s`;
+  // h2.innerText = username;
 
+  console.log(id);
   // logoutBtn.addEventListener("submit", async (e) => {
   //     e.preventDefault();
   //     logOutHandler();
