@@ -6,10 +6,10 @@ const loginUser = async (req, res) => {
   } = req;
 
   const user = await User.findByUsername(username);
-  if (!user) return res.sendStatus(404);
+  if (!user) return res.status(404).send("User not found");
 
   const isPasswordValid = await user.isValidPassword(password);
-  if (!isPasswordValid) return res.sendStatus(401);
+  if (!isPasswordValid) return res.status(401).send("Invalid password");
 
   session.userId = user.id;
   res.send(user);

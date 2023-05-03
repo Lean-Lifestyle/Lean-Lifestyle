@@ -1,5 +1,5 @@
 // Fetch Helpers
-const handleFetch = async (url, options) => {
+export const handleFetch = async (url, options) => {
   try {
     const response = await fetch(url, options);
     const { status, statusText, ok } = response;
@@ -12,7 +12,7 @@ const handleFetch = async (url, options) => {
   }
 };
 
-const fetchData = async (url, options) => {
+export const fetchData = async (url, options) => {
   try {
     const response = await fetch(url, options);
     if (!response.ok) throw new Error(response.statusText);
@@ -23,9 +23,21 @@ const fetchData = async (url, options) => {
   }
 };
 
-const handleError = (error) => console.error(error.message);
+export const handleError = (error) => console.error(error.message);
 
-const getFetchOptions = (body, method = "POST") => ({
+export const getUserId = async () => {
+  try {
+    const [data, error] = await fetchData("/api/me", { method: "GET" });
+    if (error) handleError(error);
+    console.log(data.id);
+    return data.id;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getFetchOptions = (body, method = "POST") => ({
   method,
   credentials: "include", // IMPORTANT, this tells fetch to include cookies
   headers: { "Content-Type": "application/json" },
@@ -33,7 +45,7 @@ const getFetchOptions = (body, method = "POST") => ({
 });
 
 // CREATE USER
-const signupAndLoginHandler = async (url, form) => {
+export const signupAndLoginHandler = async (url, form) => {
   const formData = new FormData(form);
   const options = getFetchOptions(Object.fromEntries(formData.entries()));
   const [_response, err] = await handleFetch(url, options);
@@ -45,7 +57,7 @@ const signupAndLoginHandler = async (url, form) => {
 };
 
 // READ USER
-const fetchLoggedInUser = async () => {
+export const fetchLoggedInUser = async () => {
   const [response, _err] = await handleFetch("/api/me", {
     credentials: "include",
   });
@@ -53,7 +65,7 @@ const fetchLoggedInUser = async () => {
 };
 
 // UPDATE USER
-const updateUsernameHandler = async (form) => {
+export const updateUsernameHandler = async (form) => {
   const formData = new FormData(form);
   const username = formData.get("username");
   if (!username) return alert("Username is required");
@@ -66,7 +78,7 @@ const updateUsernameHandler = async (form) => {
 };
 
 // DELETE USER
-const logOutHandler = async () => {
+export const logOutHandler = async () => {
   const [_response, err] = await handleFetch("/api/users/logout", {
     method: "DELETE",
   });
@@ -75,7 +87,7 @@ const logOutHandler = async () => {
 };
 
 // Nav Helper
-const setNav = (hasLoggedInUser) => {
+export const setNav = (hasLoggedInUser) => {
   const loggedOutNavHtml = `<ul>
     <li><a href="/">Home</a></li>
     <li><a href="./create.html">Sign Up</a></li>
@@ -91,9 +103,7 @@ const setNav = (hasLoggedInUser) => {
   document.querySelector("nav").innerHTML = navHtml;
 };
 
-// This is wonky. Once you learn about bundlers we won't have to
-// explicitly create globals. We just lack the tools right now.
-Object.assign(window, {
+export default {
   handleFetch,
   fetchData,
   handleError,
@@ -103,16 +113,5 @@ Object.assign(window, {
   setNav,
   logOutHandler,
   updateUsernameHandler,
-});
-
-export {
-  handleFetch,
-  fetchData,
-  handleError,
-  getFetchOptions,
-  fetchLoggedInUser,
-  signupAndLoginHandler,
-  setNav,
-  logOutHandler,
-  updateUsernameHandler,
+  getUserId,
 };

@@ -8,6 +8,7 @@ const logout = require("./logout");
 const showMe = require("./show-me");
 const createUsersStats = require("./create_users_stats");
 const checkUsersStats = require("./check_users_stats");
+const userProgress = require("./user_progress");
 
 module.exports = {
   list,
@@ -20,4 +21,5 @@ module.exports = {
   showMe,
   createUsersStats,
   checkUsersStats,
+  userProgress
 };
