@@ -19,13 +19,14 @@ Router.post("/users", userController.create);
 Router.post("/users/login", userController.login);
 Router.post("/users/questions", userController.createUsersStats);
 Router.post("/users/stats", userController.checkUsersStats);
+Router.post("/likes", userController.likedList);
+
 
 // Read
 Router.get("/users", userController.list);
 Router.get("/users/:id", userController.show);
 Router.get("/me", userController.showMe);
 Router.get("/users/:id/progress", userController.userProgress);
-Router.get("/likes", userController.likedList);
 
 // checkAuthentication middleware is applied to only to this route (and /logged-in-secret)
 Router.get("/logged-in-secret", checkAuthentication, (req, res) => {

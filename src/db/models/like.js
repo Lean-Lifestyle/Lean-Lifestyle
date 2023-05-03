@@ -1,10 +1,13 @@
 const knex = require('../knex');
 
 class Like{
-    static async list(){
+    static async list(id){
         try{
             const result = await knex.raw(`
-            SELECT * FROM likes `);
+            SELECT liker_id, likee_id, COUNT(*) AS likee_count
+            FROM likes
+            WHERE likee_id =?
+            GROUP BY liker_id, likee_id;`, [id]);
             console.log(result.rows);
             return result.rows;
         }catch(err){
