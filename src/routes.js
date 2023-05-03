@@ -27,10 +27,6 @@ Router.get("/me", userController.showMe);
 Router.get("/users/:id/progress", userController.userProgress);
 Router.get("/likes", userController.likedList);
 
-// checkAuthentication middleware is applied to only to this route (and /logged-in-secret)
-Router.get("/logged-in-secret", checkAuthentication, (req, res) => {
-  res.send({ msg: "The secret is: there is no secret." });
-});
 
 // Update
 Router.patch("/users/:id", checkAuthentication, userController.update);
