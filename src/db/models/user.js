@@ -99,14 +99,62 @@ class User {
     }
   }
 
-  update = async (username) => {
-    // dynamic queries are easier if you add more properties
+  // update = async (username) => {
+  //   // dynamic queries are easier if you add more properties
+  //   try {
+  //     const [updatedUser] = await knex("users")
+  //       .where({ id: this.id })
+  //       .update({ username })
+  //       .returning("*");
+  //     return updatedUser ? new User(updatedUser) : null;
+  //   } catch (err) {
+  //     console.error(err);
+  //     return null;
+  //   }
+  // };
+
+  updateWeight = async (weight) => {
     try {
-      const [updatedUser] = await knex("users")
-        .where({ id: this.id })
-        .update({ username })
+      const getHeight = await knex.raw(
+        `
+          SELECT height FROM user_stats
+          WHERE user_id = ?
+        `,
+        [this.id]
+      );
+      const height = getHeight.rows[0].height;
+      const bmi = (weight / (height / 100) ** 2).toFixed(3);
+      const [update] = await knex("user_stats")
+        .update({
+          weight,
+          bmi,
+        })
+        .where({ user_id: this.id })
         .returning("*");
-      return updatedUser ? new User(updatedUser) : null;
+      await knex.raw(
+        `
+        INSERT INTO users_progress (user_id, weight, bmi)
+        VALUES (?, ?, ?)
+      `,
+        [this.id, weight, bmi]
+      );
+      return update;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  };
+
+  userProgress = async () => {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT weight, created_at FROM users_progress
+        WHERE user_id = ?
+      `,
+        [this.id]
+      );
+      return result.rows;
     } catch (err) {
       console.error(err);
       return null;

@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const username = document.querySelector("#username");
 const password = document.querySelector("#password");
 const submitBtn = document.querySelector("#submit");
+const errorMessage = document.querySelector("#error-message");
 const fetchData = async (url, options) => {
   try {
     const response = await fetch(url, options);
@@ -12,7 +13,10 @@ const fetchData = async (url, options) => {
     return [null, error];
   }
 };
-const handleError = (error) => console.error(error.message);
+const handleError = async (error) => {
+  console.error(error.message);
+  errorMessage.textContent = error.message;
+};
 const fetchLoggedInUser = async () => {
   const [response, _err] = await fetchData("/api/me", {
     credentials: "include",
@@ -58,7 +62,16 @@ const handleFormSubmit = async (e) => {
     }),
   };
   const [data, error] = await fetchData("api/users/login", option);
-  if (error) return handleError(error);
+  if (error) {
+    if (error.message === "Not Found") {
+      errorMessage.textContent = "User not found";
+    } else if (error.message === "Unauthorized") {
+      errorMessage.textContent = "Invalid password";
+    } else {
+      handleError(error);
+    }
+    return;
+  }
   const userStats = await checkUsersStats(data.id);
   if (userStats) {
     console.log("if:", userStats);
@@ -76,6 +89,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await fetchLoggedInUser();
   } else {
     console.log("not logged in");
-    submitBtn.addEventListener("click", handleFormSubmit);
+    form.addEventListener("submit", handleFormSubmit);
   }
 });

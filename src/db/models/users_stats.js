@@ -14,6 +14,14 @@ class UserStats {
         bmi,
         activity_level,
       ]);
+
+      await knex.raw(
+        `
+        INSERT INTO users_progress (user_id, weight, bmi)
+        VALUES (?, ?, ?)
+      `,
+        [user_id, weight, bmi]
+      );
       return rows;
     } catch (error) {
       console.log(error);
