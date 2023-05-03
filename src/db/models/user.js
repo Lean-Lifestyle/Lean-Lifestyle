@@ -3,15 +3,19 @@ const authUtils = require("../../utils/auth-utils");
 
 class User {
   #passwordHash = null;
-  constructor({ id, username, password }) {
+  constructor({ id, username, password, height, weight, bmi, activity_level }) {
     this.id = id;
     this.username = username;
+    this.height = height;
+    this.weight = weight;
+    this.bmi = bmi;
+    this.activity_level = activity_level;
     this.#passwordHash = password;
   }
 
   static async list() {
     try {
-      const query = "SELECT * FROM users";
+      const query = "SELECT users.id, users.username, user_stats.height, user_stats.weight, user_stats.bmi, user_stats.activity_level FROM users JOIN user_stats on users.id = user_stats.user_id";
       const { rows } = await knex.raw(query);
       return rows.map((user) => new User(user));
     } catch (err) {

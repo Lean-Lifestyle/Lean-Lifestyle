@@ -1,13 +1,13 @@
-const { apiKey } = require("../../config.js");
+// const { apiKey } = require("../../config.js");
 
 const h2 = document.querySelector("#username");
 const userHeight = document.querySelector("#height");
 const userWeight = document.querySelector("#weight");
 const userLevel = document.querySelector("#level");
 const userBMI = document.querySelector("#bmi");
-const logoutBtn = document.querySelector("#logoutBtn");
 const ytBtn = document.querySelector("#ytBtn");
 const searchYt = document.querySelector("#searchBar");
+
 
 const fetchData = async (url, options) => {
   try {

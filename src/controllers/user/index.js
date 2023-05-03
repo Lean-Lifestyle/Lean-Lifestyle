@@ -9,6 +9,7 @@ const showMe = require("./show-me");
 const createUsersStats = require("./create_users_stats");
 const checkUsersStats = require("./check_users_stats");
 const userProgress = require("./user_progress");
+const likedList = require("./liked_list");
 
 module.exports = {
   list,
@@ -21,5 +22,6 @@ module.exports = {
   showMe,
   createUsersStats,
   checkUsersStats,
-  userProgress
+  userProgress,
+  likedList,
 };

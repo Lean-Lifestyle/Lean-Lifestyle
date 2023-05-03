@@ -57,7 +57,7 @@ input[type="submit"]:hover {
 .dashboard{
   background-color: purple;
 }
-.profile-card, .apiContent{
+.profile-card, .apiContent, .controllers{
   display: flex;
   border: 1px solid #ddd;
   border-radius: 5px;
