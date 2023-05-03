@@ -14,8 +14,8 @@ const createUsersStats = async (req, res) => {
   } = req;
   const user_stats = await UserStats.create(
     user_id,
-    weight,
     height,
+    weight,
     bmi,
     activity_level
   );

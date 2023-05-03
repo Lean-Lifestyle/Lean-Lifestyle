@@ -5,6 +5,7 @@ const checkUsersStats = async (req, res) => {
   } = req;
   const userStats = await UserStats.getUserStats(user_id);
   if (userStats) {
+    console.log(userStats);
     res.status(201).send(userStats);
   } else {
     res.status(500).send({ err: "Can't create" });
