@@ -1,3 +1,5 @@
+const { apiKey } = require("../../config.js");
+
 const h2 = document.querySelector("#username");
 const userHeight = document.querySelector("#height");
 const userWeight = document.querySelector("#weight");
@@ -85,11 +87,9 @@ const main = async () => {
   };
   const [data, error] = await fetchData("/api/users/stats", option);
   if (error) handleError(error);
-  console.log(data);
 
   const { user_Id, height, weight, bmi, activity_level } = data;
 
-  console.log(activity_level);
 
   if (activity_level === "level_1") {
     userLevel.innerText = "Sedentary: little or no exercise";
@@ -110,7 +110,6 @@ const main = async () => {
   const inche = convertCMtoInches(height);
   const { feet, inches } = convertInchesToFeet(inche);
   const lbs = covertKgTOLbs(weight);
-  console.log(lbs);
   // const stats = await getUserStats();
   h2.innerText = username;
   userHeight.innerText = `Height: ${feet}' ${inches}''`;
@@ -118,7 +117,6 @@ const main = async () => {
   userBMI.innerText = `BMI : ${bmi}`;
   // level.innerText = ` Activity Level : ${stats.activity_level}'s`;
 
-  console.log(id);
   // logoutBtn.addEventListener("submit", async (e) => {
   //     e.preventDefault();
   //     logOutHandler();
@@ -141,6 +139,7 @@ logout.addEventListener("click", async (e) => {
 
 ytBtn.addEventListener("click", async (e) => {
     e.preventDefault();
+    console.log(apiKey)
     const searchQuery = searchYt.value;
 
     yt(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${apiKey}`);
