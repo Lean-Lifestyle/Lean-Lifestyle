@@ -19,6 +19,7 @@ Router.post("/users", userController.create);
 Router.post("/users/login", userController.login);
 Router.post("/users/questions", userController.createUsersStats);
 Router.post("/users/stats", userController.checkUsersStats);
+Router.post('/likeCount', userController.createLike);
 Router.post("/likes", userController.likedList);
 
 

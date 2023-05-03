@@ -36,9 +36,11 @@ const main = async (userId) => {
   const [data, error] = await fetchData(`/api/users/${userId}/progress`, {
     method: "GET",
   });
+
   if (error) handleError(error);
   console.log(data);
   if (data.length === 0) return;
+
   const { id, username, height, weight, bmi, activity_level } = data[0];
   const weightArr = data.map((user) =>
     Math.round(user.changed_weight * 2.20462)
@@ -46,6 +48,17 @@ const main = async (userId) => {
   const timeArr = data.map((user) =>
     new Date(user.time.slice(0, 10)).toLocaleDateString("en-US")
   );
+  const option = {
+    method: "POST",
+    headers: {
+      body: JSON.stringify({
+        likee_id: userId,
+      }),
+    },
+  };
+  const [result, error2] = await fetchData("/api/likeCount", option);
+  if (error2) return handleError(error2);
+  console.log(result);
 
   userLevel.innerText = determineActivity(activity_level);
 
@@ -82,8 +95,6 @@ const main = async (userId) => {
     },
   });
 };
-
-main(1);
 
 function determineActivity(activity_level) {
   if (activity_level === "level_1") {
@@ -133,8 +144,8 @@ form.addEventListener("submit", async (e) => {
   window.location.reload();
 });
 
-let userId = await getUserId(); // get userId of current user
-main(userId); // pass userId to main function
+let userId = await getUserId();
+main(userId);
 prev.addEventListener("click", async (e) => {
   e.preventDefault();
   main(userId);
