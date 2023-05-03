@@ -1,4 +1,4 @@
-// const { apiKey } = require("../../config.js");
+import { getUserId, fetchData, handleError } from "../scripts/global.js";
 
 const h2 = document.querySelector("#username");
 const userHeight = document.querySelector("#height");
@@ -8,29 +8,6 @@ const userBMI = document.querySelector("#bmi");
 const ytBtn = document.querySelector("#ytBtn");
 const searchYt = document.querySelector("#searchBar");
 
-
-const fetchData = async (url, options) => {
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) throw new Error(response.statusText);
-    if (response.status === 204) return [{}];
-    return [await response.json()];
-  } catch (error) {
-    return [null, error];
-  }
-};
-
-const fetchFrom = async (url) => {
-  try {
-    const response = await fetch(url);
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-const handleError = (error) => console.error(error.message);
 const getUserName = async () => {
   try {
     const [data, error] = await fetchData("/api/me", { method: "GET" });
@@ -39,17 +16,6 @@ const getUserName = async () => {
     return data.username;
   } catch (error) {
     console.log(error);
-    return null;
-  }
-};
-
-const getUserId = async () => {
-  try {
-    const [data, error] = await fetchData("/api/me", { method: "GET" });
-    if (error) handleError(error);
-    console.log(data.id);
-    return data.id;
-  } catch (error) {
     return null;
   }
 };
@@ -88,8 +54,7 @@ const main = async () => {
   const [data, error] = await fetchData("/api/users/stats", option);
   if (error) handleError(error);
 
-  const { user_Id, height, weight, bmi, activity_level } = data;
-
+  const { height, weight, bmi, activity_level } = data;
 
   if (activity_level === "level_1") {
     userLevel.innerText = "Sedentary: little or no exercise";
@@ -110,18 +75,10 @@ const main = async () => {
   const inche = convertCMtoInches(height);
   const { feet, inches } = convertInchesToFeet(inche);
   const lbs = covertKgTOLbs(weight);
-  // const stats = await getUserStats();
   h2.innerText = username;
   userHeight.innerText = `Height: ${feet}' ${inches}''`;
   userWeight.innerText = `Weight : ${lbs} lbs`;
   userBMI.innerText = `BMI : ${bmi}`;
-  // level.innerText = ` Activity Level : ${stats.activity_level}'s`;
-
-  // logoutBtn.addEventListener("submit", async (e) => {
-  //     e.preventDefault();
-  //     logOutHandler();
-  //     window.location.href = '../index.html';
-  // });
 };
 
 main();
@@ -137,21 +94,69 @@ logout.addEventListener("click", async (e) => {
   window.location.href = "/";
 });
 
-ytBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    console.log(apiKey)
-    const searchQuery = searchYt.value;
+const form = document.querySelector("form");
+const weightEl = document.querySelector("#change-weight");
+const ctx = document.getElementById("myChart").getContext("2d");
 
-    yt(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${apiKey}`);
-})
+const convertToKG = (weight) => Number((weight * 0.45359237).toFixed(3));
 
-async function yt(url) {
-    try{
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-    }catch(error){
-        console.log(error);
-    }
-   
-}
+const userProgress = async () => {
+  const userId = await getUserId();
+  const [data, err] = await fetchData(`/api/users/${userId}/progress`, {
+    method: "GET",
+  });
+  if (err) handleError(err);
+  const weight = data.map((obj) => {
+    const kg = obj.weight;
+    return Math.round(kg * 2.20426);
+  });
+  const time = data.map((obj) => obj.created_at.slice(0, 10));
+  return {
+    weight,
+    time,
+  };
+};
+
+const main2 = async () => {
+  const { weight, time } = await userProgress();
+  const myChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: time,
+      datasets: [
+        {
+          label: "Weight Progress in LB",
+          data: weight,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: false,
+        },
+      },
+    },
+  });
+};
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  console.log(weightEl);
+  console.log(weightEl.value);
+  const kg = convertToKG(weightEl.value);
+  const userId = await getUserId();
+  const [data, err] = await fetchData(`/api/users/${userId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ weight: kg }),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (err) handleError(err);
+  window.location.reload();
+});
+
+main2();
