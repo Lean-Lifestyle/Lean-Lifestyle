@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-    <!-- <script type="module" src="../../scripts/global.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <header id="header">
@@ -68,73 +68,21 @@
           </div>
         </div>
       </div>
-      <div class="graph">
-        <!-- add graph code right here -->
-      </div>
-      <div class="apiContent">
-        <div class="form-box">
-          <form>
-            <div class="user-box">
-              <label for="Search">Search</label>
-              <input type="text" id="searchBar"/>
-              <button type = 'click' id ='ytBtn'>YT Submit</button>
-            </div>
-          </form>
-        </div>
-        <div class="form-box">
-          <form>
-            <div class="container">
-              <label for="nameOfExercise">Name of Exercise: </label>
-              <input type="text" id="nameOfExercise" />
-            </div>
-            <div class="container">
-              <select id="activity-level" name="typeOfExercise">
-                <option value="cardio">Cardio</option>
-                <option value="olympic_weightlifting">
-                  Olympic WeightLifting
-                </option>
-                <option value="plyometrics">Plyometrics</option>
-                <option value="powerlifting">Powerlifting</option>
-                <option value="strength">Strength</option>
-                <option value="stretching">Stretching</option>
-                <option value="strongman">Strongman</option>
-              </select>
-            </div>
-            <div class="conatiner">
-              <select id="activity-level" name="muscleOfExercise">
-                <option value="chest">Chest</option>
-                <option value="back">Back</option>
-                <option value="biceps">Biceps</option>
-                <option value="triceps">Triceps</option>
-                <option value="shoulders">Shoulders</option>
-                <option value="abdominals">Abs</option>
-                <option value="legs">Legs</option>
-                <option value="calves">Calves</option>
-                <option value="quadriceps">Quadriceps</option>
-                <option value="hamstrings">Hamstrings</option>
-                <option value="glutes">Glutes</option>
-                <option value="neck">Neck</option>
-                <option value="forearms">Forearms</option>
-                <option value="traps">Traps</option>
-                <option value="lats">Lats</option>
-              </select>
-            </div>
-            <div class="container">
-              <select id="activity-level" name="difficultyOfExercise">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="expert">Expert</option>
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
+    <form>
+      <label for="weight">Change Weight</label>
+      <input type="number" id="change-weight" />
+      <input type="submit" value="submit" />
+    </form>
+    <div class="graph-container">
+      <canvas id="myChart"></canvas>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
       crossorigin="anonymous"
     ></script>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

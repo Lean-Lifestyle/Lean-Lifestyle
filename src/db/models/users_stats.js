@@ -60,10 +60,10 @@ class UserStats {
   }
 }
 
-// const main = async () => {
-//   const user_stats = await UserStats.getUserStats(1);
-//   console.log(user_stats);
-// }
-// main();
+const main = async () => {
+  const user_stats = await UserStats.getUserStats(1);
+  console.log(user_stats);
+};
+main();
 
 module.exports = UserStats;
