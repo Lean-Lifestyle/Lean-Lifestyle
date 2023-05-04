@@ -12,6 +12,7 @@ const userProgress = require("./user_progress");
 const likedList = require("./liked_list");
 const createLike = require("./create_like");
 const likerList = require("./liker_list");
+const deleteLike = require("./delete_like");
 
 module.exports = {
   list,
@@ -27,4 +28,5 @@ module.exports = {
   likedList,
   createLike,
   likerList,
+  deleteLike,
 };

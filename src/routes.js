@@ -35,5 +35,6 @@ Router.patch("/users/:id", checkAuthentication, userController.update);
 
 // Delete
 Router.delete("/users/logout", userController.logout);
+Router.delete('/dlikes', userController.deleteLike);
 
 module.exports = Router;

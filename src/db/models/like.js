@@ -1,5 +1,6 @@
 const { JSONCookie } = require("cookie-parser");
 const knex = require("../knex");
+const { likedList } = require("../../controllers/user");
 
 class Like {
   static async showLikes(id) {
@@ -51,6 +52,24 @@ class Like {
         [liker_id, likee_id, liker_id, likee_id]
       );
       return createLike.rows;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+  static async delete(liker_id, likee_id) {
+    try {
+      const deleteLike = await knex.raw(
+        `
+        DELETE
+        FROM likes
+        WHERE liker_id =? AND likee_id =?
+        RETURNING *;
+        `,
+        [liker_id, likee_id]
+      );
+    //   console.log(deleteLike.rows[0]);
+      return deleteLike.rows[0];
     } catch (error) {
       console.log(error);
       return null;
