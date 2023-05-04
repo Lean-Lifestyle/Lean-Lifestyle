@@ -1,21 +1,28 @@
 const knex = require("../knex");
 
 class Like {
-  // static async list(id){
-  //     try{
-  //         const result = await knex.raw(`
-  //         SELECT liker_id, likee_id, COUNT(*) AS likee_count
-  //         FROM likes
-  //         WHERE likee_id =?
-  //         GROUP BY liker_id, likee_id;`, [id]);
-  //         console.log(result.rows);
-  //         return result.rows;
-  //     }catch(err){
-  //         console.error(err);
-  //         return null;
-  //     }
-  // }
+  static async showLikes(id) {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT likee_id, COUNT(*) AS likee_count
+          FROM likes
+          WHERE likee_id = ?
+          GROUP BY likee_id;
+        `,
+        [id]
+      );
+      return result.rows;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
   static async create(liker_id, likee_id) {
+    // SELECT liker_id, likee_id, COUNT(*) AS likee_count
+    // FROM likes
+    // WHERE likee_id = ?
+    // GROUP BY liker_id, likee_id;`,
     try {
       console.log(liker_id, likee_id);
       const createLike = await knex.raw(
@@ -28,17 +35,7 @@ class Like {
             `,
         [liker_id, likee_id, liker_id, likee_id]
       );
-
-      const result = await knex.raw(
-        `
-            SELECT liker_id, likee_id, COUNT(*) AS likee_count
-            FROM likes
-            WHERE likee_id =?
-            GROUP BY liker_id, likee_id;`,
-        [likee_id]
-      );
-      console.log(result.rows);
-      return result.rows;
+      return createLike.rows;
     } catch (error) {
       console.log(error);
       return null;

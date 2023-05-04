@@ -9,6 +9,8 @@ const ytBtn = document.querySelector("#ytBtn");
 const searchYt = document.querySelector("#searchBar");
 const prev = document.querySelector("#prev");
 const next = document.querySelector("#next");
+const likeBtn = document.querySelector("#like-btn");
+const likeCount = document.querySelector("#like-count");
 
 // const getUserName = async () => {
 //   try {
@@ -38,7 +40,6 @@ const main = async (userId) => {
   });
 
   if (error) handleError(error);
-  console.log(data);
   if (data.length === 0) return;
 
   const { id, username, height, weight, bmi, activity_level } = data[0];
@@ -51,14 +52,14 @@ const main = async (userId) => {
   const option = {
     method: "POST",
     headers: {
-      body: JSON.stringify({
-        likee_id: userId,
-      }),
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({ id }),
   };
-  const [result, error2] = await fetchData("/api/likeCount", option);
-  if (error2) return handleError(error2);
-  console.log(result);
+
+  const [res, error2] = await fetchData("/api/likes", option);
+  if (error2) handleError(error2);
+  likeCount.innerText = res[0].likee_count;
 
   userLevel.innerText = determineActivity(activity_level);
 
@@ -131,8 +132,6 @@ const convertToKG = (weight) => Number((weight * 0.45359237).toFixed(3));
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log(weightEl);
-  console.log(weightEl.value);
   const kg = convertToKG(weightEl.value);
   const userId = await getUserId();
   const [data, err] = await fetchData(`/api/users/${userId}`, {
@@ -155,5 +154,22 @@ prev.addEventListener("click", async (e) => {
 next.addEventListener("click", async (e) => {
   e.preventDefault();
   main(userId);
+  console.log("next:", userId);
   userId++;
+});
+
+likeBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const option = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ likee_id: userId }),
+  };
+
+  const [data, err] = await fetchData(`/api/likeCount`, option);
+  if (err) handleError(err);
+  console.log("like:", userId);
 });

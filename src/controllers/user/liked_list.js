@@ -1,16 +1,18 @@
 const User = require("../../db/models/user");
 
 const listLiked = async (req, res) => {
-    // const { Like } = req.db;
-    // const likes = await Like.list();
-    // res.send(likes);
+  try {
     const {
-        db: { Like },
-        params: {
-            id
-        }
+      db: { Like },
+      body: { id },
     } = req;
-    
+
+    const likeCount = await Like.showLikes(id);
+    res.status(200).send(likeCount);
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
 }
 
 module.exports = listLiked;
