@@ -8,7 +8,7 @@ const routes = require("./routes");
 const app = express();
 
 app.use(handleCookieSessions);
-// app.use(logRoutes);
+app.use(logRoutes);
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "..", "public")));

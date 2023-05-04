@@ -1,5 +1,5 @@
+const { JSONCookie } = require("cookie-parser");
 const knex = require("../knex");
-
 
 class Like {
   static async showLikes(id) {
@@ -19,16 +19,35 @@ class Like {
       return null;
     }
   }
+
+  static async whoLiked(id) {
+    try {
+      const result = await knex.raw(
+        `
+        SELECT username FROM users
+        JOIN likes ON users.id = likes.liker_id
+        WHERE likes.likee_id = ?
+      `,
+        [id]
+      );
+      console.log(result.rows);
+      return result.rows;
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
   static async create(liker_id, likee_id) {
     try {
       const createLike = await knex.raw(
         `
-            INSERT INTO likes (liker_id, likee_id)
-            SELECT ?, ?
-            WHERE NOT EXISTS (
-              SELECT 1 FROM likes WHERE liker_id = ? AND likee_id = ?
-            )
-            `,
+          INSERT INTO likes (liker_id, likee_id)
+          SELECT ?, ?
+          WHERE NOT EXISTS (
+            SELECT 1 FROM likes WHERE liker_id = ? AND likee_id = ?
+          )
+          returning *;
+        `,
         [liker_id, likee_id, liker_id, likee_id]
       );
       return createLike.rows;
@@ -38,8 +57,5 @@ class Like {
     }
   }
 }
-
-// const we = Like.create(1, 3);
-// console.log(we.then((x) => console.log(x)));
 
 module.exports = Like;

@@ -11,13 +11,13 @@ const checkUsersStats = require("./check_users_stats");
 const userProgress = require("./user_progress");
 const likedList = require("./liked_list");
 const createLike = require("./create_like");
+const likerList = require("./liker_list");
 
 module.exports = {
   list,
   create,
   show,
   update,
-  
   login,
   logout,
   showMe,
@@ -25,5 +25,6 @@ module.exports = {
   checkUsersStats,
   userProgress,
   likedList,
-  createLike
+  createLike,
+  likerList,
 };

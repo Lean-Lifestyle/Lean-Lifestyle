@@ -21,6 +21,31 @@ const prev = document.querySelector("#prev");
 const next = document.querySelector("#next");
 const likeBtn = document.querySelector("#like-btn");
 const likeCount = document.querySelector("#like-count");
+const detail = document.querySelector("#detail");
+
+const totalUsers = async () => {
+  const [countData, countError] = await fetchData("/api/users", {
+    method: "GET",
+  });
+  if (countError) handleError(countError);
+  return countData.length;
+};
+
+const showLikers = async (id) => {
+  const option = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: id }),
+  };
+  const [data, error] = await fetchData("/api/likers", option);
+  if (error) handleError(error);
+  detail.innerHTML = `<summary>Who liked this progress?</summary>`;
+  return data.forEach((user) => {
+    detail.innerHTML += `<li class="ul-item">@${user.username}</li>`;
+  });
+};
 
 let userId = await getUserId();
 
@@ -39,9 +64,9 @@ const main = async (userId) => {
 
   if (error) handleError(error);
   if (data.length === 0) return;
-  console.log(data);
   const { id, username, height, weight, bmi, activity_level, target_weight } =
     data[0];
+  await showLikers(id);
 
   const targetWeight = Math.round(target_weight * 2.20462);
 
@@ -65,7 +90,7 @@ const main = async (userId) => {
   userLevel.innerText = determineActivity(activity_level);
 
   const { feet, inches } = convertInchesToFeet(convertCMtoInches(height));
-  h2.innerText = username;
+  h2.innerText = `@${username}`;
   userHeight.innerText = `Height: ${feet}' ${inches}''`;
   userWeight.innerText = `Weight : ${covertKgTOLbs(weight)} lbs`;
   userBMI.innerText = `BMI : ${bmi}`;
@@ -94,7 +119,7 @@ const main = async (userId) => {
       ],
     },
     options: {
-      responsive: true,
+      // responsive: true,
       scales: {
         y: {
           beginAtZero: false,
@@ -141,13 +166,21 @@ form.addEventListener("submit", async (e) => {
 
 prev.addEventListener("click", async (e) => {
   e.preventDefault();
-  userId--;
+  if (userId === 1) {
+    userId = await totalUsers();
+  } else {
+    userId--;
+  }
   main(userId);
 });
 
 next.addEventListener("click", async (e) => {
   e.preventDefault();
-  userId++;
+  if (userId === (await totalUsers())) {
+    userId = 1;
+  } else {
+    userId++;
+  }
   main(userId);
 });
 
@@ -162,9 +195,10 @@ likeBtn.addEventListener("click", async (e) => {
     body: JSON.stringify({ likee_id: userId }),
   };
   const [data, err] = await fetchData(`/api/likeCount`, option);
+  if (err) return handleError(err);
   if (!data.length) return;
-  if (err) handleError(err);
-  likeCount.innerText = data[0].likee_count;
+  likeCount.innerText = Number(likeCount.innerText) + 1;
+  showLikers(userId);
 });
 
 function determineActivity(activity_level) {

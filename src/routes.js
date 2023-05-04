@@ -21,6 +21,7 @@ Router.post("/users/questions", userController.createUsersStats);
 Router.post("/users/stats", userController.checkUsersStats);
 Router.post('/likeCount', userController.createLike);
 Router.post("/likes", userController.likedList);
+Router.post("/likers", userController.likerList);
 
 // Read
 Router.get("/users", userController.list);
