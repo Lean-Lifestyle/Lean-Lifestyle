@@ -1,5 +1,6 @@
 const knex = require("../knex");
 
+
 class Like {
   static async showLikes(id) {
     try {
@@ -19,12 +20,7 @@ class Like {
     }
   }
   static async create(liker_id, likee_id) {
-    // SELECT liker_id, likee_id, COUNT(*) AS likee_count
-    // FROM likes
-    // WHERE likee_id = ?
-    // GROUP BY liker_id, likee_id;`,
     try {
-      console.log(liker_id, likee_id);
       const createLike = await knex.raw(
         `
             INSERT INTO likes (liker_id, likee_id)

@@ -1,6 +1,5 @@
 const createLike = async (req, res) => {
   try {
-    console.log(req.body); // check value of req.body
     const {
       session,
       db: { Like },

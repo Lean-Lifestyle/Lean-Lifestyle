@@ -907,12 +907,11 @@
       left or Right :)
     </h4>
     <script>
-      document
-        .querySelector("body > div > div.TextHolder > div > div.Return")
-        .addEventListener("click", () => {
-          console.log("clicked");
-          window.history.back();
-        });
+      document.body.addEventListener("click", () => {
+        console.log("clicked");
+        window.history.back();
+      });
+
       $(function () {
         $.mousedirection();
         $("body").bind("mousedirection", function (e) {});

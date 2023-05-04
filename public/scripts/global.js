@@ -29,7 +29,6 @@ export const getUserId = async () => {
   try {
     const [data, error] = await fetchData("/api/me", { method: "GET" });
     if (error) handleError(error);
-    console.log(data.id);
     return data.id;
   } catch (error) {
     console.error(error);

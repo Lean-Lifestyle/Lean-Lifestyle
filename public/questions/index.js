@@ -1,3 +1,10 @@
+import {
+  getUserId,
+  fetchLoggedInUser,
+  fetchData,
+  handleError
+} from '../scripts/global.js';
+
 const form = document.querySelector("form");
 const weight = document.querySelector("#weight");
 const feet = document.querySelector("#height-feet");
@@ -7,28 +14,12 @@ const duration = document.querySelector("#duration");
 const activityLevel = document.querySelector("#activity-level");
 const submitBtn = document.querySelector("#submit");
 
-const fetchData = async (url, options) => {
-  try {
-    const response = await fetch(url, options);
-    if (!response.ok) throw new Error(response.statusText);
-    if (response.status === 204) return [{}];
-    return [await response.json()];
-  } catch (error) {
-    return [null, error];
-  }
-};
-const handleError = (error) => console.error(error.message);
+document.addEventListener("DOMContentLoaded", async () => {
+  const loggedInUser = await fetchLoggedInUser();
+  if (!loggedInUser) window.location.href = "/";
+  document.body.style.display = "block";
+});
 
-const getUserId = async () => {
-  try {
-    const [data, error] = await fetchData("/api/me", { method: "GET" });
-    if (error) handleError(error);
-    console.log(data.id);
-    return data.id;
-  } catch (error) {
-    return null;
-  }
-};
 
 const calculateBMI = (weight, height) =>
   Number((weight / (height / 100) ** 2).toFixed(3));

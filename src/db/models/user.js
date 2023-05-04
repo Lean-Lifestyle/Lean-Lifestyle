@@ -11,12 +11,11 @@ class User {
     this.bmi = bmi;
     this.activity_level = activity_level;
     this.#passwordHash = password;
-  }
-
+  } 
   static async list() {
     try {
       const query =
-        "SELECT users.id, users.username, user_stats.height, user_stats.weight, user_stats.bmi, user_stats.activity_level FROM users JOIN user_stats on users.id = user_stats.user_id";
+        `SELECT users.id, users.username, user_stats.height, user_stats.weight, user_stats.bmi, user_stats.activity_level FROM users JOIN user_stats on users.id = user_stats.user_id`;
       const { rows } = await knex.raw(query);
       return rows.map((user) => new User(user));
     } catch (err) {
@@ -154,10 +153,11 @@ class User {
     try {
       const result = await knex.raw(
         `
-        SELECT a.id, a.username, p.weight as "changed_weight", p.created_at as "time", u.weight, u.height, u.bmi, u.activity_level 
+        SELECT a.id, a.username, p.weight as "changed_weight", p.created_at as "time", u.weight, u.height, u.bmi, u.activity_level, t.target_weight
         FROM users_progress p
         JOIN user_stats u ON u.user_id = p.user_id
         JOIN users a ON a.id = p.user_id
+        JOIN users_target t ON t.user_id = p.user_id
         WHERE p.user_id = ?;
       `,
         [this.id]
