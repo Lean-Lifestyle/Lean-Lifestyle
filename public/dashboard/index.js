@@ -91,9 +91,27 @@ const main = async (userId) => {
 
   const { feet, inches } = convertInchesToFeet(convertCMtoInches(height));
   h2.innerText = `@${username}`;
-  userHeight.innerText = `Height: ${feet}' ${inches}''`;
+  userHeight.innerText = `Height: ${feet}'${inches}''`;
   userWeight.innerText = `Weight : ${covertKgTOLbs(weight)} lbs`;
-  userBMI.innerText = `BMI : ${bmi}`;
+  // userBMI.innerText = `BMI : ${bmi}`;
+  const currBMI = `${feet}'${inches}''`;
+
+  if(bmi < 18.5){
+    userBMI.style = "background-color: blue; color: white";
+    userBMI.innerText = `BMI : ${bmi} | Underweight`;
+  }else if(bmi >= 18.5 && bmi <= 24.9){
+    userBMI.style = "background-color: green";
+    userBMI.innerText = `BMI : ${bmi} | Healthy`;
+  }else if(bmi >= 25 && bmi <= 29.9){
+    userBMI.style = "background-color: yellow";
+    userBMI.innerText = `BMI : ${bmi} | Overweight`;
+  }else if(bmi >= 30 && bmi <= 34.9){
+    userBMI.style = "background-color: orange";
+    userBMI.innerText = `BMI : ${bmi} | Obese`;
+  }else if(bmi >= 35){
+    userBMI.style = "background-color: red";
+    userBMI.innerText = `BMI : ${bmi} | Severly Obese`;
+  }
 
   if (myChart) myChart.destroy();
   myChart = new Chart(ctx, {
