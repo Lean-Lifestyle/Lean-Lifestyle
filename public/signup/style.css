@@ -247,3 +247,18 @@ input[type="date"]::placeholder {
   text-align:center;
   padding-bottom:5px
 }
+
+#form > div:nth-child(8) > label > a {
+  color: #03e9f4;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#birthday-label {
+  padding: 0;
+}
+
+#birthday-cont input:focus ~ label,
+#birthday-cont input:valid ~ label {
+  top: -10px;
+}
