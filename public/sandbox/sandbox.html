@@ -54,33 +54,32 @@
     <main style="display: flex;">
       <section style="display: inline-block;">
         <div class = 'container' style="display: flex; flex-direction: column; justify-content: center;">
-          <form id="searchForm" style="border: 1px solid yellow;">
+          <form class = 'forms' id="searchForm" style="border: 1px solid yellow;">
               <div class = 'section' style="display: flex; justify-content: center;">
                 <input type="text" placeholder="Search..." id = 'searchBar' required>
                 <button type="submit" id ='searchBtn'>Search</button>
               </div>
           </form>
-          <div id = 'video-container' style="display: flex; flex-direction: column; justify-content: center;">
-            <div class = 'sector1' style="margin:1rem">
+          <div id = 'video-container' style="display: flex; flex-direction: column; justify-content: center; background-color: rgba(0, 0, 0, .5);">
+            <div class = 'sector1'>
               <div id = 'player1'></div>
-            </div>
-            <div class = 'sector2' style="margin: 1rem;">
+            <div class = 'sector2'>
               <div id = 'player2'></div>
             </div>
-            <div class = 'sector3' style="margin: 1rem;">
+            <div class = 'sector3'>
               <div id = 'player3'></div>
             </div>
-            <div class = 'sector4' style="margin: 1rem;">  
+            <div class = 'sector4'>  
               <div id = 'player4'></div>
             </div>
-            <div class = 'sector5' style="margin: 1rem;">
+            <div class = 'sector5'>
               <div id = 'player5'></div>
             </div>
           </div>
         </div>
       </section>
       <section style="display: inline-block;">
-        <div class = 'container' style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div class = 'forms' style="display: flex; flex-direction: column; justify-content: space-between;">
           <form id="muscleForm" style="border: 1px solid yellow;display: flex;justify-content: center;">
             <label for="muscle">Choose Muscle:</label>
             <select id="muscle" name='muscle' required>

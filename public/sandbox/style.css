@@ -33,3 +33,21 @@ button:hover {
                 0 0 50px #03e9f4, 
                 0 0 100px #03e9f4;
   }
+  .forms{
+    background: rgba(0, 0, 0, .5);
+  }
+  #searchForm{
+    padding: 1rem;
+  }
+  label{
+    padding: inherit;
+  }
+  #muscleForm{
+      align-items: center;
+      text-align: center;
+      color: #03e9f4;
+      padding: 1rem;
+  }
+  #muscle, #searchBar{
+    border-radius: 1rem;
+  }

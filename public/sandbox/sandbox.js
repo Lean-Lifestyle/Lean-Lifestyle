@@ -37,9 +37,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         const muscle = muscleSeclector.value;
         const difficulty = difficultySelector.value;
         const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}&difficulty=${difficulty}`
-        console.log(difficulty)
-        console.log(muscle)
-        console.log(apiUrl)
         const response = await fetch(apiUrl, {
             method: "GET",
             headers:{
@@ -59,13 +56,26 @@ window.addEventListener("DOMContentLoaded", async () => {
             player.style='margin: auto; padding: 10%;border-radius: 17vw;background-color:antiquewhite;text-align: center;'
             exerciseContainer.appendChild(player);
         }
+        // console.log(data[0].instructions);
         for(let i = 0; i < data.length; i++){
-            console.log(data[i]);
+          const regex = /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/g;
+            const sentences = data[i].instructions.split(regex);
+            console.log(sentences);
             let player = document.createElement("div");
             player.id = "exercise" + i;
+            // console.log(document.querySelector("#exercise"+i));
             exerciseContainer.appendChild(player);
-            player.innerHTML = `<h3><strong>${data[i].name.toUpperCase()}</strong> [${data[i].difficulty}]</h3><h4><strong>${data[i].equipment}</strong></h4><p>${data[i].instructions}</p>`;
-            player.style='margin: auto; border: 1px solid yellow; padding: 10%;border-radius: 17rem;background-color:antiquewhite;text-align: center;'
+            player.innerHTML = `<h3><strong>${data[i].name.toUpperCase()}</strong> [${data[i].difficulty}]</h3><h4><strong>${data[i].equipment}</strong></h4>`;
+            let olList = document.createElement("ol");
+            player.appendChild(olList);
+            sentences.forEach(sentence => {
+                let li = document.createElement("li");
+                li.innerHTML = sentence;
+                olList.appendChild(li);
+            })
+            
+
+            player.style='margin: auto; border: 1px solid yellow; padding: 10%;border-radius: 10rem;background-color:antiquewhite;text-align: center;'
         }
         console.log(data)
     }catch(error){
@@ -137,18 +147,27 @@ const resetPlayers = () => {
 const createPlayers = () => {
     let player1 = document.createElement("div");
     player1.id = "player1";
+    player1.style = "margin:1rem;";
     document.querySelector('.sector1').appendChild(player1);
+    
     let player2 = document.createElement("div");
     player2.id = "player2";
+    player2.style = "margin:1rem;";
     document.querySelector('.sector2').appendChild(player2);
+    
     let player3 = document.createElement("div");
     player3.id = "player3";
+    player3.style = "margin:1rem;";
     document.querySelector('.sector3').appendChild(player3);
+
     let player4 = document.createElement("div");
     player4.id = "player4";
+    player4.style = "margin:1rem;";
     document.querySelector('.sector4').appendChild(player4);
+
     let player5 = document.createElement("div");
     player5.id = "player5";
+    player5.style = "margin:1rem;";
     document.querySelector('.sector5').appendChild(player5);
 };
 
