@@ -56,14 +56,11 @@ window.addEventListener("DOMContentLoaded", async () => {
             player.style='margin: auto; padding: 10%;border-radius: 17vw;background-color:antiquewhite;text-align: center;'
             exerciseContainer.appendChild(player);
         }
-        // console.log(data[0].instructions);
         for(let i = 0; i < data.length; i++){
           const regex = /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/g;
             const sentences = data[i].instructions.split(regex);
-            console.log(sentences);
             let player = document.createElement("div");
             player.id = "exercise" + i;
-            // console.log(document.querySelector("#exercise"+i));
             exerciseContainer.appendChild(player);
             player.innerHTML = `<h3><strong>${data[i].name.toUpperCase()}</strong> [${data[i].difficulty}]</h3><h4><strong>${data[i].equipment}</strong></h4>`;
             let olList = document.createElement("ol");
@@ -73,9 +70,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 li.innerHTML = sentence;
                 olList.appendChild(li);
             })
-            
-
-            player.style='margin: auto; border: 1px solid yellow; padding: 10%;border-radius: 10rem;background-color:antiquewhite;text-align: center;'
+            player.style='margin: auto; border: 1px solid yellow; padding: 10%;border-radius: 10rem;background-color:antiquewhite;'
         }
         console.log(data)
     }catch(error){
