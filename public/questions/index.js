@@ -2,8 +2,8 @@ import {
   getUserId,
   fetchLoggedInUser,
   fetchData,
-  handleError
-} from '../scripts/global.js';
+  handleError,
+} from "../scripts/global.js";
 
 const form = document.querySelector("form");
 const weight = document.querySelector("#weight");
@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!loggedInUser) window.location.href = "/";
   document.body.style.display = "block";
 });
-
 
 const calculateBMI = (weight, height) =>
   Number((weight / (height / 100) ** 2).toFixed(3));
@@ -54,7 +53,5 @@ submitBtn.addEventListener("click", async (e) => {
   };
   const [data, error] = await fetchData("/api/users/questions", option);
   if (error) return handleError(error);
-  window.location.href = "../dashboard/index.html";
-  console.log("Users Stats created");
-  window.location.href = "/dashboard";
+  window.location.href = "/user_image";
 });

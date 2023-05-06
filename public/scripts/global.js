@@ -77,7 +77,8 @@ export const updateUsernameHandler = async (form) => {
 };
 
 // DELETE USER
-export const logOutHandler = async () => {
+export const logOutHandler = async (e) => {
+  e.preventDefault();
   const [_response, err] = await handleFetch("/api/users/logout", {
     method: "DELETE",
   });

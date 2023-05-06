@@ -1,3 +1,5 @@
+import { getUserId, fetchLoggedInUser } from "../scripts/global.js";
+
 const form = document.querySelector("#form");
 const firstNameInput = document.querySelector("#first-name");
 const lastNameInput = document.querySelector("#last-name");
@@ -9,6 +11,13 @@ const birthdayInput = document.querySelector("#birthday");
 const login = document.querySelector("#login");
 const errorMessage = document.querySelector("#error-message");
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const user = await fetchLoggedInUser();
+  if (user) window.location.href = "/dashboard";
+  else {
+    document.body.style.display = "block";
+  }
+});
 const fetchData = async (url, options) => {
   try {
     const response = await fetch(url, options);

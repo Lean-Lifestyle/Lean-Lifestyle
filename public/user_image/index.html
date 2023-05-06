@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body style="display: none">
+    <script>
+      UPLOADCARE_PUBLIC_KEY = "85cc66c2948f170ea2f2";
+    </script>
+    <script
+      src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"
+      charset="utf-8"
+    ></script>
+    <h1>Upload Profile Pic</h1>
+    <input
+      type="hidden"
+      role="uploadcare-uploader"
+      data-crop="1:1"
+      data-images-only
+    />
+    <div>
+      <img alt="" style="display: none" id="preview" width="300" height="300" />
+    </div>
+    <button id="upload" style="display: none">Upload</button>
+    <button id="skip">Skip</button>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+/* Making a round cropping frame. This CSS also rounds the preview image. */
+.uploadcare--jcrop-holder>div>div, #preview {
+  border-radius: 50%;
+}
+
+/* Styles and stuff for the page */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+  height: 100vh;
+  color: white;
+}
+
+#preview {
+  margin-top: 1rem;
+}
+
+p {
+  text-align: center;
+  max-width: 600px;
+  padding: 1em;
+  background: #eee;
+}
+h1 {
+  text-align: center;
+}
+
+button {
+  border: none;
+  background: transparent;
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  margin: 10px auto;
+}
+
+button:hover {
+  background: #03e9f4;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4, 
+              0 0 25px #03e9f4, 
+              0 0 50px #03e9f4, 
+              0 0 100px #03e9f4;
+}

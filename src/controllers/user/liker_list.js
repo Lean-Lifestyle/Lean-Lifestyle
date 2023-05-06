@@ -3,9 +3,7 @@ const likerList = async (req, res) => {
     db: { Like },
     body: { id },
   } = req;
-  console.log(id);
   const likers = await Like.whoLiked(id);
-  console.log(likers);
   res.send(likers);
 };
 

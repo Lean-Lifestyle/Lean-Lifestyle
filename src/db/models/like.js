@@ -28,10 +28,10 @@ class Like {
         SELECT username FROM users
         JOIN likes ON users.id = likes.liker_id
         WHERE likes.likee_id = ?
+        ORDER BY likes.created_at;
       `,
         [id]
       );
-      console.log(result.rows);
       return result.rows;
     } catch (err) {
       console.error(err);
@@ -57,6 +57,18 @@ class Like {
       return null;
     }
   }
+
+  static async didLike(liker_id, likee_id) {
+    const checkLike = await knex.raw(
+      `
+      SELECT * FROM likes
+      WHERE liker_id = ? AND likee_id = ?
+      `,
+      [liker_id, likee_id]
+    );
+    return !!checkLike.rows.length;
+  }
+
   static async delete(liker_id, likee_id) {
     try {
       const deleteLike = await knex.raw(
@@ -68,8 +80,7 @@ class Like {
         `,
         [liker_id, likee_id]
       );
-    //   console.log(deleteLike.rows[0]);
-      return deleteLike.rows[0];
+      return deleteLike.rows;
     } catch (error) {
       console.log(error);
       return null;

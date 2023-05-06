@@ -19,9 +19,12 @@ Router.post("/users", userController.create);
 Router.post("/users/login", userController.login);
 Router.post("/users/questions", userController.createUsersStats);
 Router.post("/users/stats", userController.checkUsersStats);
-Router.post('/likeCount', userController.createLike);
+Router.post("/likeCount", userController.createLike);
 Router.post("/likes", userController.likedList);
 Router.post("/likers", userController.likerList);
+Router.post("/didLike", userController.didLike);
+Router.post("/upload-image", userController.uploadImage);
+Router.post("/send-image", userController.sendImage);
 
 // Read
 Router.get("/users", userController.list);
@@ -29,12 +32,11 @@ Router.get("/users/:id", userController.show);
 Router.get("/me", userController.showMe);
 Router.get("/users/:id/progress", userController.userProgress);
 
-
 // Update
 Router.patch("/users/:id", checkAuthentication, userController.update);
 
 // Delete
 Router.delete("/users/logout", userController.logout);
-Router.delete('/dlikes', userController.deleteLike);
+Router.delete("/dlikes", userController.deleteLike);
 
 module.exports = Router;
