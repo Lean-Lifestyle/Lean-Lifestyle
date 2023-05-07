@@ -18,7 +18,7 @@
     <header id="header">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-          <a class="navbar-brand" href="#"
+          <a class="navbar-brand" href="/dashboard"
             ><img id="logo" src="../images/logo.png" alt="logo" />
           </a>
           <button
@@ -37,19 +37,37 @@
             <div class="mx-auto"></div>
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link nav-hover" href="/dashboard">Home</a>
+                <a
+                  class="nav-link nav-hover"
+                  href="/dashboard"
+                  style="color: white"
+                  >Dashboard</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link nav-hover" href="../progress">Profile</a>
+                <a
+                  class="nav-link nav-hover"
+                  href="/workout"
+                  style="color: white"
+                  style="color: white"
+                  >Workout</a
+                >
               </li>
               <li class="nav-item">
-                <a id="logout" class="nav-link nav-hover" href="#">Log out</a>
+                <a
+                  id="logout"
+                  class="nav-link nav-hover"
+                  href="#"
+                  style="color: white"
+                  >Log out</a
+                >
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
+    <h1>Lean Lifestyle Progress Tracker</h1>
     <div class="content">
       <!-- <h1>Weight Loss Goal Tracker</h1> -->
       <div class="dashboard">
@@ -68,24 +86,25 @@
         </div>
       </div>
     </div>
-    <form id="search-user">
-      <label style="padding-right: 5px">Search User</label>
-      <input type="text" id="search" />
-      <input type="submit" value="submit" />
-    </form>
-    <form class="remove" id="update-weight">
-      <label style="padding-right: 5px" for="weight">Change Weight</label>
-      <input type="number" id="change-weight" />
-      <input type="submit" value="submit" />
-    </form>
+    <div id="form-container">
+      <form id="search-user" class="search">
+        <div class="input-wrapper">
+          <input type="text" id="search" required />
+          <label for="search">Search User</label>
+        </div>
+        <input type="submit" value="submit" />
+      </form>
+      <form class="remove" id="update-weight">
+        <div class="input-wrapper">
+          <input type="number" id="change-weight" required />
+          <label for="change-weight">Change Weight</label>
+        </div>
+        <input type="submit" value="submit" />
+      </form>
+    </div>
     <div id="v-info">
       <div class="graph-container">
         <canvas id="myChart"></canvas>
-      </div>
-      <div id="detail-container">
-        <details id="detail">
-          <summary>See who liked this progress</summary>
-        </details>
       </div>
     </div>
     <div id="button-container">
@@ -96,6 +115,11 @@
         <span id="like-count">0</span>
       </div>
       <button id="next">Next></button>
+    </div>
+    <div id="detail-container">
+      <details id="detail">
+        <summary>See who liked this progress</summary>
+      </details>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
