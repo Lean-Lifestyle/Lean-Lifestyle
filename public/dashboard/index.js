@@ -159,6 +159,7 @@ const main = async (userId) => {
     activity_level,
     target_weight,
   } = data[0];
+  console.log(data[0]);
   await showLikers(id);
 
   const targetWeight = convertKgTOLbs(target_weight);
@@ -167,8 +168,13 @@ const main = async (userId) => {
     Math.round(user.changed_weight * 2.20462)
   );
   const timeArr = data.map((user) =>
-    new Date(user.time.slice(0, 10)).toLocaleDateString("en-US")
+    new Date(user.time).toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    })
   );
+
   const option = {
     method: "POST",
     headers: {
@@ -186,7 +192,13 @@ const main = async (userId) => {
   h2.innerText = `@${username}`;
   userHeight.innerText = `Height: ${feet}' ${inches}''`;
   userWeight.innerText = `Weight : ${convertKgTOLbs(weight)} lbs`;
-  document.querySelector("#joined").innerHTML = `Joined: ${new Date(joined.slice(0, 10)).toLocaleDateString("en-US")}`;
+  document.querySelector("#joined").innerHTML = `Joined: ${new Date(
+    joined
+  ).toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })}`;
 
   determineBMIRange(bmi);
 
@@ -350,22 +362,66 @@ async function getUserPic(userId) {
   profilePic.src = image_link;
 }
 
+// const originalStyles = profilePic.style.cssText;
+// profilePic.addEventListener("click", (e) => {
+//   profilePic.style = `
+//     position: absolute;
+//     z-index: 1;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 500px;
+//     height: 500px;
+//   `;
+//   e.stopPropagation();
+//   document.addEventListener(
+//     "click",
+//     (e) => {
+//       profilePic.style.cssText = originalStyles;
+//     },
+//     { once: true }
+//   );
+// });
+
+// changeProfile.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   window.location.href = "/user_image";
+// });
+
+const overlay = document.createElement("div");
+overlay.style = `
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+`;
+
 const originalStyles = profilePic.style.cssText;
+
 profilePic.addEventListener("click", (e) => {
   profilePic.style = `
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
     height: 500px;
   `;
+  overlay.style.opacity = 1;
+  document.body.appendChild(overlay);
   e.stopPropagation();
   document.addEventListener(
     "click",
     (e) => {
       profilePic.style.cssText = originalStyles;
+      overlay.style.opacity = 0;
+      document.body.removeChild(overlay);
     },
     { once: true }
   );

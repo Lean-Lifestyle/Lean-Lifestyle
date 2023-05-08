@@ -62,13 +62,7 @@ class User {
     }
   }
 
-  static async create(
-    username,
-    password,
-    email,
-    gender,
-    date_of_birth
-  ) {
+  static async create(username, password, email, gender, date_of_birth) {
     try {
       const passwordHash = await authUtils.hashPassword(password);
       const query = `INSERT INTO users (username, password, email, gender, date_of_birth)
@@ -130,7 +124,7 @@ class User {
     }
   };
 
-  userProgress = async () => {
+  static userProgress = async (id) => {
     try {
       const result = await knex.raw(
         `
@@ -141,7 +135,7 @@ class User {
         JOIN users_target t ON t.user_id = p.user_id
         WHERE p.user_id = ?;
       `,
-        [this.id]
+        [id]
       );
       return result.rows;
     } catch (err) {
