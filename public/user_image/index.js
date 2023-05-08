@@ -20,6 +20,10 @@ widget.onUploadComplete((fileInfo) => {
   preview.src = fileInfo.cdnUrl;
   img.style.display = "block";
   upload.style.display = "block";
+  document.querySelector(
+    "#uploadcare--widget__text > div.uploadcare--link.uploadcare--widget__file-name"
+  ).innerHTML = `<button>Change/Edit</button>`;
+  document.querySelector("#uploadcare--widget__text > div.uploadcare--widget__file-size").innerHTML = "";
 });
 
 skip.addEventListener("click", () => {

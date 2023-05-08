@@ -7,6 +7,7 @@ import {
 } from "../scripts/global.js";
 
 const logout = document.querySelector("#logout");
+const table = document.querySelector("table");
 
 logout.addEventListener("click", logOutHandler);
 document.addEventListener("DOMContentLoaded", async () => {
@@ -30,7 +31,7 @@ const convertToAge = (date) => {
   const currentDate = new Date();
   const birthDate = new Date(date);
   const age = currentDate.getFullYear() - birthDate.getFullYear();
-  return age - 1;
+  return age;
 };
 
 const getCaloriesRecommendation = async () => {
@@ -44,7 +45,9 @@ const getCaloriesRecommendation = async () => {
     target_weight,
   } = data;
   const age = convertToAge(date_of_birth);
-  const url = `https://fitness-calculator.p.rapidapi.com/dailycalorie?age=${age}&gender=${gender}&height=${height}&weight=${weight}&activitylevel=${activity_level}`;
+  const url = `https://fitness-calculator.p.rapidapi.com/dailycalorie?age=${age}&gender=${
+    gender === "other" ? "female" : gender
+  }&height=${height}&weight=${weight}&activitylevel=${activity_level}`;
   const options = {
     method: "GET",
     headers: {
@@ -53,21 +56,42 @@ const getCaloriesRecommendation = async () => {
     },
   };
   const [result, error] = await fetchData(url, options);
-  if (error) handleError(error);
   console.log(result);
+  console.log(url)
+  if (error) return handleError(error);
   if (weight >= target_weight) {
     return {
       BMR: result.data.BMR,
-      calories: result.data.goals["Mild weight loss"],
+      "Maintain weight": result.data.goals["maintain weight"],
+      "Weight loss 0.5\n lb/week": result.data.goals["Weight loss"].calory,
+      "Mild weight loss\n 1lb/week ":
+        result.data.goals["Mild weight loss"].calory,
+      "Extreme weight loss\n 2 lb/week":
+        result.data.goals["Extreme weight loss"].calory,
     };
   } else {
     return {
       BMR: result.data.BMR,
-      calories: result.data.goals["Weight gain"],
+      "Maintain weight": result.data.goals["maintain weight"],
+      "Weight gain \n0.5lb/week": result.data.goals["Weight gain"].calory,
+      "Mild weight gain\n 1 lb/week":
+        result.data.goals["Mild weight gain"].calory,
+      "Extreme weight gain\n 2 lb/week":
+        result.data.goals["Extreme weight gain"].calory,
     };
   }
 };
 
-getCaloriesRecommendation().then((calories) => {
-  console.log(calories);
-});
+const fillTable = async () => {
+  const data = await getCaloriesRecommendation();
+  for (const key in data) {
+    table.innerHTML += `
+    <tr>
+      <td>${key.replace(/\n/g, "<br>")}</td>
+      <td>${Math.round(data[key])} Calories/day</td>
+    </tr>
+    `;
+  }
+};
+
+fillTable();

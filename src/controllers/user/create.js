@@ -6,8 +6,6 @@ const createUser = async (req, res) => {
       username,
       password,
       email,
-      first_name,
-      last_name,
       gender,
       date_of_birth,
     },
@@ -25,8 +23,6 @@ const createUser = async (req, res) => {
           username,
           password,
           email,
-          first_name,
-          last_name,
           gender,
           date_of_birth
         );

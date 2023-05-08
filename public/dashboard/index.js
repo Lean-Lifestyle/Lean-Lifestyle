@@ -292,17 +292,17 @@ likeBtn.addEventListener("click", async (e) => {
 
 function determineActivity(activity_level) {
   if (activity_level === "level_1") {
-    return "Sedentary: little or no exercise";
+    return "Sedentary active";
   } else if (activity_level === "level_2") {
-    return "Lightly active: 1-3 times/week";
+    return "Lightly active";
   } else if (activity_level === "level_3") {
-    return "Moderately active: 3-5 times/week";
+    return "Moderately active";
   } else if (activity_level === "level_4") {
-    return "Active: daily exercise or intense exercise 3-4 times/week ";
+    return "Active";
   } else if (activity_level === "level_5") {
-    userLevel.innerText = "Very Active: intense exercise 6-7 times/week";
+    userLevel.innerText = "Very Active";
   } else if (activity_level === "level_6") {
-    return "Extra Active: very intense exercise daily, or physical job";
+    return "Extra Active";
   }
 }
 
@@ -341,22 +341,25 @@ async function getUserPic(userId) {
   profilePic.src = image_link;
 }
 
-profilePic.addEventListener("mouseover", (e) => {
+const originalStyles = profilePic.style.cssText;
+profilePic.addEventListener("click", (e) => {
   profilePic.style = `
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
   `;
-});
-
-profilePic.addEventListener("mouseout", (e) => {
-  profilePic.style = `
-  width: 200px;
-  height: 200px;
-  `;
+  e.stopPropagation();
+  document.addEventListener(
+    "click",
+    (e) => {
+      profilePic.style.cssText = originalStyles;
+    },
+    { once: true }
+  );
 });
 
 changeProfile.addEventListener("click", (e) => {

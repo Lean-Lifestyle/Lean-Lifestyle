@@ -2,9 +2,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: linear-gradient(#141e30, #243b55);
-  height: 200vh
+  background: linear-gradient(#141e30, #243b55);  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 175vh;
 }
+
+
 .profile-card{
   background-color: thistle;
   display: block;
@@ -13,12 +18,15 @@ body {
 .card-form{
   background-color: #007bff;
  }
+
  .dashboard{
   background-color: purple;
  }
+
  .profile-card, .apiContent{
   display: flex;
   border: 1px solid #ddd;
+  justify-content: space-evenly;
   border-radius: 5px;
   padding: 20px;
   max-width: 600px;
@@ -33,9 +41,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 30px;
-  width: 170px;
-
+  margin-right: 10px;
+  width: 210px;
  }
  
  
@@ -43,6 +50,7 @@ body {
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  margin: 0;
  }
  
  
@@ -64,10 +72,33 @@ body {
   margin: 5px 0;
  }
  
+ #changeProfile {
+  background-color: #ff6961;
+  color: #fff;
+  border: none;
+  padding: 2px 4px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: -10px;
+  transition: .5s;
+
+}
+
+#changeProfile:hover {
+  background-color: #d33f2f;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #d33f2f, 
+              0 0 25px #d33f2f, 
+              0 0 50px #d33f2f, 
+              0 0 100px #d33f2f;
+}
  
  #logo {
   width: 200px;
- }@media (max-width: 600px) {
+ }
+ 
+ @media (max-width: 600px) {
   .profile-card {
     max-width: 90%;
   }
@@ -79,12 +110,12 @@ body {
 h1 {
   color: white;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 label {
   color: white
 }
-
 
 .graph-container {
   margin: 0 auto;
@@ -97,13 +128,11 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px auto;
-
 }
 
 #button-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 #like-count {
@@ -153,3 +182,113 @@ details {
   justify-content: space-between;
 }
 
+.search input[type="text"],
+.remove input[type="number"] {
+  width: 200px;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  font-size: 16px;
+}
+
+.search input[type="submit"],
+.remove input[type="submit"] {
+  border: none;
+  background: transparent;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  margin-left: 10px;
+}
+
+.search input[type="submit"]:hover,
+.remove input[type="submit"]:hover {
+  background: #03e9f4;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03e9f4, 
+              0 0 25px #03e9f4, 
+              0 0 50px #03e9f4, 
+              0 0 100px #03e9f4;
+}
+
+
+.input-wrapper {
+  position: relative;
+  margin: 20px 0;
+}
+
+.input-wrapper input {
+  font-size: 16px;
+  padding: 10px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+}
+
+.input-wrapper input:focus,
+.input-wrapper input:valid {
+  outline: none;
+  border-bottom-color: #03e9f4;
+}
+
+.input-wrapper label {
+  font-size: 16px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+
+.input-wrapper input:focus ~ label,
+.input-wrapper input:valid ~ label {
+  top: -15px;
+  left: 0;
+  color: #03e9f4;
+  font-size: 12px;
+}
+
+
+#form-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#detail > * {
+  font-size: large;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  list-style: none;
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #03e9f4;
+  text-decoration: underline;
+}
+
+summary {
+  display: flex;
+  align-items: center;
+}
+
+summary::before {
+  content: "\25B6";
+  margin-right: 0.5rem;
+}

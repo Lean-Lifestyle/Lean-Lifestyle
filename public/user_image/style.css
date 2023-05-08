@@ -11,8 +11,12 @@ body {
   justify-content: center;
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55);
-  height: 100vh;
+  background: linear-gradient(#141e30, #243b55);  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   color: white;
+  height: 100vh;
 }
 
 #preview {

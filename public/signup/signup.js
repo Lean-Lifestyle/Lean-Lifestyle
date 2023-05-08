@@ -1,14 +1,11 @@
 import { getUserId, fetchLoggedInUser } from "../scripts/global.js";
 
 const form = document.querySelector("#form");
-const firstNameInput = document.querySelector("#first-name");
-const lastNameInput = document.querySelector("#last-name");
 const emailInput = document.querySelector("#email");
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
 const genderInput = document.querySelector("#gender");
 const birthdayInput = document.querySelector("#birthday");
-const login = document.querySelector("#login");
 const errorMessage = document.querySelector("#error-message");
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -38,8 +35,6 @@ const handleError = async (error) => {
 };
 
 const data = [
-  firstNameInput,
-  lastNameInput,
   emailInput,
   usernameInput,
   passwordInput,
@@ -50,8 +45,6 @@ const data = [
 const eraseValues = () => data.forEach((item) => (item.value = ""));
 const getValues = () => {
   return {
-    first_name: firstNameInput.value,
-    last_name: lastNameInput.value,
     email: emailInput.value,
     username: usernameInput.value,
     password: passwordInput.value,
