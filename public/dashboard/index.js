@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 let userId = await getUserId();
 const realId = userId;
-
 const removeThings = (userId) => {
   const remove = document.querySelectorAll(".remove");
   if (userId !== realId) {
@@ -150,8 +149,16 @@ const main = async (userId) => {
 
   if (error) handleError(error);
   if (data.length === 0) return;
-  const { id, username, height, weight, bmi, activity_level, target_weight } =
-    data[0];
+  const {
+    id,
+    username,
+    joined,
+    height,
+    weight,
+    bmi,
+    activity_level,
+    target_weight,
+  } = data[0];
   await showLikers(id);
 
   const targetWeight = convertKgTOLbs(target_weight);
@@ -173,12 +180,13 @@ const main = async (userId) => {
   const [res, error2] = await fetchData("/api/likes", option);
   if (error2) handleError(error2);
 
-  userLevel.innerText = determineActivity(activity_level);
+  userLevel.innerText = `Activity Level: ${determineActivity(activity_level)}`;
 
   const { feet, inches } = convertInchesToFeet(convertCMtoInches(height));
   h2.innerText = `@${username}`;
   userHeight.innerText = `Height: ${feet}' ${inches}''`;
   userWeight.innerText = `Weight : ${convertKgTOLbs(weight)} lbs`;
+  document.querySelector("#joined").innerHTML = `Joined: ${new Date(joined.slice(0, 10)).toLocaleDateString("en-US")}`;
 
   determineBMIRange(bmi);
 
@@ -249,6 +257,7 @@ searchUser.addEventListener("submit", async (e) => {
     user.value = "";
     return;
   }
+  userId = id;
   main(id);
   user.value = "";
 });
@@ -300,7 +309,7 @@ function determineActivity(activity_level) {
   } else if (activity_level === "level_4") {
     return "Active";
   } else if (activity_level === "level_5") {
-    userLevel.innerText = "Very Active";
+    return "Very Active";
   } else if (activity_level === "level_6") {
     return "Extra Active";
   }

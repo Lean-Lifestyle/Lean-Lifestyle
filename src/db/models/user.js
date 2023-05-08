@@ -134,7 +134,7 @@ class User {
     try {
       const result = await knex.raw(
         `
-        SELECT a.id, a.username, a.gender, a.date_of_birth, p.weight as "changed_weight", p.created_at as "time", u.weight, u.height, u.bmi, u.activity_level, t.target_weight
+        SELECT a.id, a.created_at as "joined", a.username, a.gender, a.date_of_birth, p.weight as "changed_weight", p.created_at as "time", u.weight, u.height, u.bmi, u.activity_level, t.target_weight
         FROM users_progress p
         JOIN user_stats u ON u.user_id = p.user_id
         JOIN users a ON a.id = p.user_id

@@ -5,7 +5,6 @@ const uploadImage = async (req, res) => {
       db: { User },
       body: { image },
     } = req;
-    console.log(session.userId, image);
     const result = await User.uploadImage(session.userId, image);
     res.status(200).send(result);
   } catch (err) {
