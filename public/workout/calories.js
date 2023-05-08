@@ -63,9 +63,9 @@ const getCaloriesRecommendation = async () => {
     return {
       BMR: result.data.BMR,
       "Maintain weight": result.data.goals["maintain weight"],
-      "Weight loss 0.5\n lb/week": result.data.goals["Weight loss"].calory,
-      "Mild weight loss\n 1lb/week ":
+      "Mild weight loss\n 0.5lb/week ":
         result.data.goals["Mild weight loss"].calory,
+      "Weight loss 1\n lb/week": result.data.goals["Weight loss"].calory,
       "Extreme weight loss\n 2 lb/week":
         result.data.goals["Extreme weight loss"].calory,
     };
@@ -73,9 +73,9 @@ const getCaloriesRecommendation = async () => {
     return {
       BMR: result.data.BMR,
       "Maintain weight": result.data.goals["maintain weight"],
-      "Weight gain \n0.5lb/week": result.data.goals["Weight gain"].calory,
-      "Mild weight gain\n 1 lb/week":
-        result.data.goals["Mild weight gain"].calory,
+      "Mild weight gain\n 0.5 lb/week":
+      result.data.goals["Mild weight gain"].calory,
+      "Weight gain \n1lb/week": result.data.goals["Weight gain"].calory,
       "Extreme weight gain\n 2 lb/week":
         result.data.goals["Extreme weight gain"].calory,
     };

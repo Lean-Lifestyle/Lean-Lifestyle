@@ -137,7 +137,7 @@ const createLike = async (id) => {
 
 const convertCMtoInches = (cm) => Math.round(cm / 2.54);
 const convertInchesToFeet = (inches) => ({
-  feet: Math.round(inches / 12),
+  feet: Math.floor(inches / 12),
   inches: inches % 12,
 });
 const convertKgTOLbs = (kg) => Math.round(kg * 2.20462);
