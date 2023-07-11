@@ -16,6 +16,42 @@ Here is how we can do Auth for our projects.
 - [Understanding The Code](#understanding-the-code)
   - [Client Side](#client-side)
   - [Server Side](#server-side)
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="toggle">Dark Mode</button>
+    <script>
+      const body = document.body;
+      let lightMode = localStorage.getItem('lightMode') === 'true';
+
+      const applyStyles = () => {
+        if (lightMode) {
+          body.style.backgroundColor = 'black';
+          body.style.color = 'white';
+        } else {
+          body.style.backgroundColor = 'white';
+          body.style.color = 'black';
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', applyStyles);
+
+      const toggleLightMode = () => {
+        lightMode = !lightMode;
+        localStorage.setItem('lightMode', lightMode.toString());
+        applyStyles();
+      };
+
+      toggle.addEventListener('click', toggleLightMode);
+    </script>
+  </body>
+</html>
 
 # Setup
 

@@ -159,7 +159,6 @@ const main = async (userId) => {
     activity_level,
     target_weight,
   } = data[0];
-  console.log(data[0]);
   await showLikers(id);
 
   const targetWeight = convertKgTOLbs(target_weight);

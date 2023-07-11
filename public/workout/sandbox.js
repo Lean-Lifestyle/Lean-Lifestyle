@@ -12,7 +12,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
     try {
       const searchQuery = searchBar.value;
-      console.log(searchQuery);
       const apiUrl = `https://www.googleapis.com/youtube/v3/search?q=${searchQuery}&key=${apiYT}&part=snippet&type=video`;
       //add another 4 vidoes
       const response = await fetch(apiUrl);

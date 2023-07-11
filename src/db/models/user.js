@@ -10,6 +10,7 @@ class User {
     this.weight = weight;
     this.bmi = bmi;
     this.activity_level = activity_level;
+    
     this.#passwordHash = password;
   }
   static async list() {
@@ -83,6 +84,8 @@ class User {
     }
   }
 
+
+  
   static async deleteAll() {
     try {
       return knex.raw("TRUNCATE users;");

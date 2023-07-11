@@ -56,8 +56,6 @@ const getCaloriesRecommendation = async () => {
     },
   };
   const [result, error] = await fetchData(url, options);
-  console.log(result);
-  console.log(url)
   if (error) return handleError(error);
   if (weight >= target_weight) {
     return {

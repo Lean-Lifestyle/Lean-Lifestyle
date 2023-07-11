@@ -56,7 +56,6 @@ const getValues = () => {
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("checking start");
   errorMessage.textContent = "";
 
   const values = getValues();
